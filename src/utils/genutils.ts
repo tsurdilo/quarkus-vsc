@@ -1,5 +1,6 @@
 import { window, QuickInput, ExtensionContext, QuickPickItem } from "vscode";
 import { executeInTerminal } from "./quarkusterminalutils";
+import MultiStepInput from "./multistep";
 
 export interface GenState {
 	title: string;
@@ -56,13 +57,13 @@ export async function showGenOptions(
 
 	quickPick.items = items;
 	quickPick.title = "Select project option";
-	quickPick.onDidChangeSelection(selection => {
+	quickPick.onDidChangeSelection(async selection => {
 		if (selection[0]) {
 			if (selection[0].label === items[0].label) {
 				quickPick.dispose();
-				confirmGen(context, genDefaultFunc, genState);
+				await confirmGen(context, genDefaultFunc, genState);
 			} else if (selection[0].label === items[1].label) {
-				confirmGen(context, genConfigFunc, genState);
+				await genConfigFunc(context, genState);
 			} else {
 				window.showInformationMessage(
 					`Invalid command ${selection[0]}`
@@ -74,12 +75,10 @@ export async function showGenOptions(
 	return quickPick;
 }
 
-export function genDefaultProject(
+export async function genDefaultProject(
 	_context: ExtensionContext,
 	genState: GenState
 ) {
-	window.showInformationMessage("Quarkus is alive -- gen default!");
-
 	var defaultComamnd = `mvn io.quarkus:quarkus-maven-plugin:0.16.1:create \
     -DprojectGroupId=${genState.genInfo.projectGroupId} \
     -DprojectArtifactId=${genState.genInfo.projectArtifactId} \
@@ -90,15 +89,115 @@ export function genDefaultProject(
 	executeInTerminal(defaultComamnd, false);
 }
 
-export function genConfigProject(
+export async function genConfigProjectRun(
 	_context: ExtensionContext,
-	_genState?: GenState
+	genState: GenState
 ) {
-	window.showInformationMessage("Quarkus is alive -- gen with config!");
-	executeInTerminal("--version", true);
+	var defaultComamnd = `mvn io.quarkus:quarkus-maven-plugin:0.16.1:create \
+    -DprojectGroupId=${genState.genInfo.projectGroupId} \
+    -DprojectArtifactId=${genState.genInfo.projectArtifactId} \
+    -DprojectVersion=${genState.genInfo.projectVersion} \
+    -DclassName="${genState.genInfo.className}" \
+    -Dpath="${genState.genInfo.path}"`;
+
+	executeInTerminal(defaultComamnd, false);
 }
 
-export function confirmGen(
+export async function genConfigProject(
+	context: ExtensionContext,
+	genState: GenState
+) {
+	const title = "Configure your Quarkus Project";
+
+	async function collectInputs(): Promise<GenState> {
+		await MultiStepInput.run(input => pickGroupId(input, genState));
+		return genState;
+	}
+
+	async function pickGroupId(input: MultiStepInput, genState: GenState) {
+		genState.genInfo.projectGroupId = await input.showInputBox({
+			title,
+			step: 1,
+			totalSteps: 5,
+			value:
+				typeof genState.genInfo.projectGroupId === "string"
+					? genState.genInfo.projectGroupId
+					: "org.my.group",
+			prompt: "Choose your project group id",
+			validate: validateGenInput,
+			shouldResume: shouldResume
+		});
+		return (input: MultiStepInput) => pickArtifactId(input, genState);
+	}
+
+	async function pickArtifactId(input: MultiStepInput, genState: GenState) {
+		genState.genInfo.projectArtifactId = await input.showInputBox({
+			title,
+			step: 2,
+			totalSteps: 5,
+			value:
+				typeof genState.genInfo.projectArtifactId === "string"
+					? genState.genInfo.projectArtifactId
+					: "quarkusproject",
+			prompt: "Choose your project artifact id",
+			validate: validateGenInput,
+			shouldResume: shouldResume
+		});
+		return (input: MultiStepInput) => pickVersion(input, genState);
+	}
+
+	async function pickVersion(input: MultiStepInput, genState: GenState) {
+		genState.genInfo.projectVersion = await input.showInputBox({
+			title,
+			step: 3,
+			totalSteps: 5,
+			value:
+				typeof genState.genInfo.projectVersion === "string"
+					? genState.genInfo.projectVersion
+					: "1.0-SNAPSHOT",
+			prompt: "Choose your project version",
+			validate: validateGenInput,
+			shouldResume: shouldResume
+		});
+		return (input: MultiStepInput) => pickPath(input, genState);
+	}
+
+	async function pickPath(input: MultiStepInput, genState: GenState) {
+		genState.genInfo.path = await input.showInputBox({
+			title,
+			step: 4,
+			totalSteps: 5,
+			value:
+				typeof genState.genInfo.path === "string"
+					? genState.genInfo.path
+					: "/hello",
+			prompt: "Choose your project path",
+			validate: validateGenInput,
+			shouldResume: shouldResume
+		});
+		return (input: MultiStepInput) => pickClassName(input, genState);
+	}
+
+	async function pickClassName(input: MultiStepInput, genState: GenState) {
+		genState.genInfo.className = await input.showInputBox({
+			title,
+			step: 5,
+			totalSteps: 5,
+			value:
+				typeof genState.genInfo.className === "string"
+					? genState.genInfo.className
+					: "org.my.group.MyResource",
+			prompt: "Choose your project class name",
+			validate: validateGenInput,
+			shouldResume: shouldResume
+		});
+	}
+
+	await collectInputs();
+	confirmGen(context, genConfigProjectRun, genState);
+}
+
+export async function confirmGen(
 	context: ExtensionContext,
 	genFunction: Function,
 	genState: GenState
@@ -109,13 +208,13 @@ export function confirmGen(
 			{ modal: true },
 			"Yes, generate!"
 		)
-		.then(answer => {
+		.then(async answer => {
 			if (answer === "Yes, generate!") {
 				try {
 					if (genState) {
-						genFunction(context, genState);
+						await genFunction(context, genState);
 					} else {
-						genFunction(context);
+						await genFunction(context);
 					}
 				} catch (e) {
 					window.showInformationMessage(
@@ -124,4 +223,14 @@ export function confirmGen(
 				}
 			}
 		});
+}
+
+async function validateGenInput(name: string) {
+	await new Promise(_resolve => setTimeout(_resolve, 1000));
+	return name.length < 1 ? "Invalid input" : undefined;
+}
+
+function shouldResume() {
+	// Could show a notification with the option to resume.
+	return new Promise<boolean>((_resolve, _reject) => {});
 }

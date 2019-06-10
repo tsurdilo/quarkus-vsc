@@ -26127,6 +26127,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode_1 = __webpack_require__(/*! vscode */ "vscode");
 const quarkusterminalutils_1 = __webpack_require__(/*! ./quarkusterminalutils */ "./src/utils/quarkusterminalutils.ts");
+const multistep_1 = __webpack_require__(/*! ./multistep */ "./src/utils/multistep.ts");
 function getDefaultGenState() {
     return {
         title: "",
@@ -26161,61 +26162,174 @@ function showGenOptions(genDefaultFunc, genConfigFunc, context, genState) {
         ];
         quickPick.items = items;
         quickPick.title = "Select project option";
-        quickPick.onDidChangeSelection(selection => {
+        quickPick.onDidChangeSelection((selection) => __awaiter(this, void 0, void 0, function* () {
             if (selection[0]) {
                 if (selection[0].label === items[0].label) {
                     quickPick.dispose();
-                    confirmGen(context, genDefaultFunc, genState);
+                    yield confirmGen(context, genDefaultFunc, genState);
                 }
                 else if (selection[0].label === items[1].label) {
-                    confirmGen(context, genConfigFunc, genState);
+                    yield genConfigFunc(context, genState);
                 }
                 else {
                     vscode_1.window.showInformationMessage(`Invalid command ${selection[0]}`);
                 }
             }
-        });
+        }));
         quickPick.onDidHide(() => quickPick.dispose());
         return quickPick;
     });
 }
 exports.showGenOptions = showGenOptions;
 function genDefaultProject(_context, genState) {
-    vscode_1.window.showInformationMessage("Quarkus is alive -- gen default!");
-    var defaultComamnd = `mvn io.quarkus:quarkus-maven-plugin:0.16.1:create \
+    return __awaiter(this, void 0, void 0, function* () {
+        var defaultComamnd = `mvn io.quarkus:quarkus-maven-plugin:0.16.1:create \
     -DprojectGroupId=${genState.genInfo.projectGroupId} \
     -DprojectArtifactId=${genState.genInfo.projectArtifactId} \
     -DprojectVersion=${genState.genInfo.projectVersion} \
     -DclassName="${genState.genInfo.className}" \
     -Dpath="${genState.genInfo.path}"`;
-    quarkusterminalutils_1.executeInTerminal(defaultComamnd, false);
+        quarkusterminalutils_1.executeInTerminal(defaultComamnd, false);
+    });
 }
 exports.genDefaultProject = genDefaultProject;
-function genConfigProject(_context, _genState) {
-    vscode_1.window.showInformationMessage("Quarkus is alive -- gen with config!");
-    quarkusterminalutils_1.executeInTerminal("--version", true);
+function genConfigProjectRun(_context, genState) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var defaultComamnd = `mvn io.quarkus:quarkus-maven-plugin:0.16.1:create \
+    -DprojectGroupId=${genState.genInfo.projectGroupId} \
+    -DprojectArtifactId=${genState.genInfo.projectArtifactId} \
+    -DprojectVersion=${genState.genInfo.projectVersion} \
+    -DclassName="${genState.genInfo.className}" \
+    -Dpath="${genState.genInfo.path}"`;
+        quarkusterminalutils_1.executeInTerminal(defaultComamnd, false);
+    });
+}
+exports.genConfigProjectRun = genConfigProjectRun;
+function genConfigProject(context, genState) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const title = "Configure your Quarkus Project";
+        function collectInputs() {
+            return __awaiter(this, void 0, void 0, function* () {
+                yield multistep_1.default.run(input => pickGroupId(input, genState));
+                return genState;
+            });
+        }
+        function pickGroupId(input, genState) {
+            return __awaiter(this, void 0, void 0, function* () {
+                genState.genInfo.projectGroupId = yield input.showInputBox({
+                    title,
+                    step: 1,
+                    totalSteps: 5,
+                    value: typeof genState.genInfo.projectGroupId === "string"
+                        ? genState.genInfo.projectGroupId
+                        : "org.my.group",
+                    prompt: "Choose your project group id",
+                    validate: validateGenInput,
+                    shouldResume: shouldResume
+                });
+                return (input) => pickArtifactId(input, genState);
+            });
+        }
+        function pickArtifactId(input, genState) {
+            return __awaiter(this, void 0, void 0, function* () {
+                genState.genInfo.projectArtifactId = yield input.showInputBox({
+                    title,
+                    step: 2,
+                    totalSteps: 5,
+                    value: typeof genState.genInfo.projectArtifactId === "string"
+                        ? genState.genInfo.projectArtifactId
+                        : "quarkusproject",
+                    prompt: "Choose your project artifact id",
+                    validate: validateGenInput,
+                    shouldResume: shouldResume
+                });
+                return (input) => pickVersion(input, genState);
+            });
+        }
+        function pickVersion(input, genState) {
+            return __awaiter(this, void 0, void 0, function* () {
+                genState.genInfo.projectVersion = yield input.showInputBox({
+                    title,
+                    step: 3,
+                    totalSteps: 5,
+                    value: typeof genState.genInfo.projectVersion === "string"
+                        ? genState.genInfo.projectVersion
+                        : "1.0-SNAPSHOT",
+                    prompt: "Choose your project version",
+                    validate: validateGenInput,
+                    shouldResume: shouldResume
+                });
+                return (input) => pickPath(input, genState);
+            });
+        }
+        function pickPath(input, genState) {
+            return __awaiter(this, void 0, void 0, function* () {
+                genState.genInfo.path = yield input.showInputBox({
+                    title,
+                    step: 4,
+                    totalSteps: 5,
+                    value: typeof genState.genInfo.path === "string"
+                        ? genState.genInfo.path
+                        : "/hello",
+                    prompt: "Choose your project path",
+                    validate: validateGenInput,
+                    shouldResume: shouldResume
+                });
+                return (input) => pickClassName(input, genState);
+            });
+        }
+        function pickClassName(input, genState) {
+            return __awaiter(this, void 0, void 0, function* () {
+                genState.genInfo.className = yield input.showInputBox({
+                    title,
+                    step: 5,
+                    totalSteps: 5,
+                    value: typeof genState.genInfo.className === "string"
+                        ? genState.genInfo.className
+                        : "org.my.group.MyResource",
+                    prompt: "Choose your project class name",
+                    validate: validateGenInput,
+                    shouldResume: shouldResume
+                });
+            });
+        }
+        yield collectInputs();
+        confirmGen(context, genConfigProjectRun, genState);
+    });
 }
 exports.genConfigProject = genConfigProject;
 function confirmGen(context, genFunction, genState) {
-    vscode_1.window
-        .showInformationMessage("About to generate your Quarkus project. Please confirm.", { modal: true }, "Yes, generate!")
-        .then(answer => {
-        if (answer === "Yes, generate!") {
-            try {
-                if (genState) {
-                    genFunction(context, genState);
+    return __awaiter(this, void 0, void 0, function* () {
+        vscode_1.window
+            .showInformationMessage("About to generate your Quarkus project. Please confirm.", { modal: true }, "Yes, generate!")
+            .then((answer) => __awaiter(this, void 0, void 0, function* () {
+            if (answer === "Yes, generate!") {
+                try {
+                    if (genState) {
+                        yield genFunction(context, genState);
+                    }
+                    else {
+                        yield genFunction(context);
+                    }
                 }
-                else {
-                    genFunction(context);
+                catch (e) {
+                    vscode_1.window.showInformationMessage(`Error generating your Quarkus project: ${e}`);
                 }
             }
-            catch (e) {
-                vscode_1.window.showInformationMessage(`Error generating your Quarkus project: ${e}`);
-            }
-        }
+        }));
     });
 }
 exports.confirmGen = confirmGen;
+function validateGenInput(name) {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield new Promise(_resolve => setTimeout(_resolve, 1000));
+        return name.length < 1 ? "Invalid input" : undefined;
+    });
+}
+function shouldResume() {
+    // Could show a notification with the option to resume.
+    return new Promise((_resolve, _reject) => { });
+}
 
 
 /***/ }),
@@ -26271,6 +26385,183 @@ var M2Utils;
     }
     M2Utils.parseXmlContent = parseXmlContent;
 })(M2Utils = exports.M2Utils || (exports.M2Utils = {}));
+
+
+/***/ }),
+
+/***/ "./src/utils/multistep.ts":
+/*!********************************!*\
+  !*** ./src/utils/multistep.ts ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const vscode_1 = __webpack_require__(/*! vscode */ "vscode");
+class MultiStepInput {
+    constructor() {
+        this.steps = [];
+    }
+    static run(start) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const input = new MultiStepInput();
+            return input.stepThrough(start);
+        });
+    }
+    stepThrough(start) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let step = start;
+            while (step) {
+                this.steps.push(step);
+                if (this.current) {
+                    this.current.enabled = false;
+                    this.current.busy = true;
+                }
+                try {
+                    step = yield step(this);
+                }
+                catch (err) {
+                    if (err === InputFlowAction.back) {
+                        this.steps.pop();
+                        step = this.steps.pop();
+                    }
+                    else if (err === InputFlowAction.resume) {
+                        step = this.steps.pop();
+                    }
+                    else if (err === InputFlowAction.cancel) {
+                        step = undefined;
+                    }
+                    else {
+                        throw err;
+                    }
+                }
+            }
+            if (this.current) {
+                this.current.dispose();
+            }
+        });
+    }
+    showQuickPick({ title, step, totalSteps, items, activeItem, placeholder, buttons, shouldResume }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const disposables = [];
+            try {
+                return yield new Promise((resolve, reject) => {
+                    const input = vscode_1.window.createQuickPick();
+                    input.title = title;
+                    input.step = step;
+                    input.totalSteps = totalSteps;
+                    input.placeholder = placeholder;
+                    input.items = items;
+                    if (activeItem) {
+                        input.activeItems = [activeItem];
+                    }
+                    input.buttons = [
+                        ...(this.steps.length > 1 ? [vscode_1.QuickInputButtons.Back] : []),
+                        ...(buttons || [])
+                    ];
+                    disposables.push(input.onDidTriggerButton(item => {
+                        if (item === vscode_1.QuickInputButtons.Back) {
+                            reject(InputFlowAction.back);
+                        }
+                        else {
+                            resolve(item);
+                        }
+                    }), input.onDidChangeSelection(items => resolve(items[0])), input.onDidHide(() => {
+                        (() => __awaiter(this, void 0, void 0, function* () {
+                            reject(shouldResume && (yield shouldResume())
+                                ? InputFlowAction.resume
+                                : InputFlowAction.cancel);
+                        }))().catch(reject);
+                    }));
+                    if (this.current) {
+                        this.current.dispose();
+                    }
+                    this.current = input;
+                    this.current.show();
+                });
+            }
+            finally {
+                disposables.forEach(d => d.dispose());
+            }
+        });
+    }
+    showInputBox({ title, step, totalSteps, value, prompt, validate, buttons, shouldResume }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const disposables = [];
+            try {
+                return yield new Promise((resolve, reject) => {
+                    const input = vscode_1.window.createInputBox();
+                    input.title = title;
+                    input.step = step;
+                    input.totalSteps = totalSteps;
+                    input.value = value || "";
+                    input.prompt = prompt;
+                    input.buttons = [
+                        ...(this.steps.length > 1 ? [vscode_1.QuickInputButtons.Back] : []),
+                        ...(buttons || [])
+                    ];
+                    let validating = validate("");
+                    disposables.push(input.onDidTriggerButton(item => {
+                        if (item === vscode_1.QuickInputButtons.Back) {
+                            reject(InputFlowAction.back);
+                        }
+                        else {
+                            resolve(item);
+                        }
+                    }), input.onDidAccept(() => __awaiter(this, void 0, void 0, function* () {
+                        const value = input.value;
+                        input.enabled = false;
+                        input.busy = true;
+                        if (!(yield validate(value))) {
+                            resolve(value);
+                        }
+                        input.enabled = true;
+                        input.busy = false;
+                    })), input.onDidChangeValue((text) => __awaiter(this, void 0, void 0, function* () {
+                        const current = validate(text);
+                        validating = current;
+                        const validationMessage = yield current;
+                        if (current === validating) {
+                            input.validationMessage = validationMessage;
+                        }
+                    })), input.onDidHide(() => {
+                        (() => __awaiter(this, void 0, void 0, function* () {
+                            reject(shouldResume && (yield shouldResume())
+                                ? InputFlowAction.resume
+                                : InputFlowAction.cancel);
+                        }))().catch(reject);
+                    }));
+                    if (this.current) {
+                        this.current.dispose();
+                    }
+                    this.current = input;
+                    this.current.show();
+                });
+            }
+            finally {
+                disposables.forEach(d => d.dispose());
+            }
+        });
+    }
+}
+exports.default = MultiStepInput;
+class InputFlowAction {
+    constructor() { }
+}
+InputFlowAction.back = new InputFlowAction();
+InputFlowAction.cancel = new InputFlowAction();
+InputFlowAction.resume = new InputFlowAction();
+exports.InputFlowAction = InputFlowAction;
 
 
 /***/ }),

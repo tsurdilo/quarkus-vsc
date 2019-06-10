@@ -1,0 +1,4 @@
+{
+    "description": "Generate and manage Quarkus projects, improve user experience for Quarkus developers.",
+    "contributes.commands.quarkus.generate": "Generate Quarkus project"
+}

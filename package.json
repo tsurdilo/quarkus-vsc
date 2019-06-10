@@ -1,0 +1,75 @@
+{
+	"name": "quarkus-vsc",
+	"displayName": "Quarkus VSC Extension",
+	"description": "%description%",
+	"version": "0.0.1",
+	"icon": "resources/logo.png",
+	"publisher": "Tihomir Surdilovic",
+	"preview": true,
+	"engines": {
+		"vscode": "^1.35.0"
+	},
+	"keywords": [
+		"Quarkus",
+		"Java"
+	],
+	"categories": [
+		"Programming Languages",
+		"Other"
+	],
+	"homepage": "https://github.com/tsurdilo/quarkus-vsc/blob/master/README.md",
+	"readmeFilename": "README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/tsurdilo/quarkus-vsc.git"
+	},
+	"activationEvents": [
+		"onCommand:quarkus.generate"
+	],
+	"main": "./dist/extension",
+	"contributes": {
+		"commands": [{
+			"command": "quarkus.generate",
+			"title": "%contributes.commands.quarkus.generate%",
+			"category": "Quarkus",
+			"icon": {
+				"light": "resources/light/generate.svg",
+				"dark": "resources/dark/generate.svg"
+			}
+		}]
+	},
+	"scripts": {
+		"vscode:prepublish": "webpack --mode production",
+		"compile": "tsc -p ./",
+		"tslint": "tslint -t verbose src/*.ts --project tslint.json",
+		"watch": "webpack --mode development --watch --info-verbosity verbose",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "npm run compile && node ./node_modules/vscode/bin/test",
+		"webpack": "webpack --mode development"
+	},
+	"devDependencies": {
+		"@types/fs-extra": "^4.0.8",
+		"@types/get-port": "^4.0.1",
+		"@types/lodash": "^4.14.121",
+		"@types/md5": "^2.1.33",
+		"@types/minimatch": "^3.0.3",
+		"@types/node": "^8.10.40",
+		"@types/xml2js": "^0.4.3",
+		"ts-loader": "^4.4.2",
+		"tslint": "^5.13.0",
+		"typescript": "^2.9.2",
+		"vscode": "^1.1.33",
+		"webpack": "^4.29.5",
+		"webpack-cli": "^3.2.3"
+	},
+	"dependencies": {
+		"fast-glob": "^2.2.4",
+		"fs-extra": "^4.0.3",
+		"get-port": "^4.2.0",
+		"lodash": "^4.17.11",
+		"md5": "^2.2.1",
+		"minimatch": "^3.0.4",
+		"xml-zero-lexer": "^2.0.5",
+		"xml2js": "^0.4.19"
+	}
+}

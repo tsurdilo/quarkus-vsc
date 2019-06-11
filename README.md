@@ -7,12 +7,14 @@ Quarkus (https://quarkus.io/) extension for VSC.
 1. Allows to generate a new Quarkus Project. You can choose between generating a new project with default settings, or configure your projects settings before generating.
 2. Allows you to add new Quarkus extensions to an already existing/generated Quarkus project.
 
+More features coming soon :)
+
 ## Commands
 
 After installing this extension you will have two new commands available:
 
-1. **Quarkus: Generate Quarkus Project**
-2. **Quarkus: Add new Quarkus Extension**
+1. **Quarkus: Generate Quarkus project**
+2. **Quarkus: Enable Quarkus extension**
 
 These commands can be accessed via the Command Panellete. To open the Command Pallette
 use F5 for Windows or ⇧⌘P on OSX).

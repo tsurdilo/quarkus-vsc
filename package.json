@@ -4,8 +4,9 @@
 	"description": "%description%",
 	"version": "0.0.1",
 	"icon": "resources/logo.png",
-	"publisher": "Tihomir Surdilovic",
-	"preview": true,
+	"publisher": "tsurdilovic",
+	"author": "Tihomir Surdilovic",
+	"license": "Apache-2.0",
 	"engines": {
 		"vscode": "^1.35.0"
 	},

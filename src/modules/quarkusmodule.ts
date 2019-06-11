@@ -1,9 +1,12 @@
-import { ExtensionContext } from "vscode";
+import { window, ExtensionContext } from "vscode";
 import {
 	showGenOptions,
 	genDefaultProject,
 	genConfigProject,
-	getDefaultGenState
+	getDefaultGenState,
+	isQuarkusProject,
+	showExtensions,
+	installExtension
 } from "../utils/genutils";
 
 export namespace QuarkusModule {
@@ -17,5 +20,18 @@ export namespace QuarkusModule {
 			getDefaultGenState()
 		);
 		quickInput.show();
+	}
+
+	export async function enableExtension(
+		_context: ExtensionContext
+	): Promise<void> {
+		if (isQuarkusProject()) {
+			var quickInput = await showExtensions(installExtension, _context);
+			quickInput.show();
+		} else {
+			window.showErrorMessage(
+				"Unable to add extension - not inside a Quarkus project"
+			);
+		}
 	}
 }

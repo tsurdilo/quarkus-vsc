@@ -1,6 +1,15 @@
-import { window, QuickInput, ExtensionContext, QuickPickItem } from "vscode";
+import {
+	window,
+	workspace,
+	QuickInput,
+	ExtensionContext,
+	QuickPickItem
+} from "vscode";
 import { executeInTerminal } from "./quarkusterminalutils";
 import MultiStepInput from "./multistep";
+import * as path from "path";
+import * as fs from "fs";
+import { getQuarkusExtensionsInfo } from "./quarkusextensions";
 
 export interface GenState {
 	title: string;
@@ -225,6 +234,30 @@ export async function confirmGen(
 		});
 }
 
+export async function confirmInstallExtension(
+	context: ExtensionContext,
+	installFunction: Function,
+	extensionid: string
+) {
+	window
+		.showInformationMessage(
+			`About to add Quarkus extension ${extensionid}. Please confirm.`,
+			{ modal: true },
+			"Yes, add!"
+		)
+		.then(async answer => {
+			if (answer === "Yes, add!") {
+				try {
+					await installFunction(context, extensionid);
+				} catch (e) {
+					window.showInformationMessage(
+						`Error adding Quarkus extension: ${e}`
+					);
+				}
+			}
+		});
+}
+
 async function validateGenInput(name: string) {
 	await new Promise(_resolve => setTimeout(_resolve, 1000));
 	return name.length < 1 ? "Invalid input" : undefined;
@@ -233,4 +266,49 @@ async function validateGenInput(name: string) {
 function shouldResume() {
 	// Could show a notification with the option to resume.
 	return new Promise<boolean>((_resolve, _reject) => {});
+}
+
+export function isQuarkusProject(): boolean {
+	var rootPath = workspace.rootPath ? workspace.rootPath : __dirname;
+	var havePom: boolean = fs.existsSync(path.resolve(rootPath, "pom.xml"));
+	var haveMvnw: boolean = fs.existsSync(path.resolve(rootPath, "mvnw"));
+	var haveMvnwCmd: boolean = fs.existsSync(
+		path.resolve(rootPath, "mvnw.cmd")
+	);
+
+	return havePom && (haveMvnw || haveMvnwCmd);
+}
+
+export async function showExtensions(
+	genInstallFunction: Function,
+	context: ExtensionContext
+): Promise<QuickInput> {
+	var quickPick = window.createQuickPick();
+	var items: QuickPickItem[] = getQuarkusExtensionsInfo();
+
+	quickPick.items = items;
+	quickPick.title = "Select project option";
+	quickPick.onDidChangeSelection(async selection => {
+		if (selection[0]) {
+			await confirmInstallExtension(
+				context,
+				genInstallFunction,
+				selection[0].label
+			);
+		} else {
+			window.showErrorMessage(`Invalid extension ${selection[0]}`);
+		}
+
+		quickPick.dispose();
+	});
+	quickPick.onDidHide(() => quickPick.dispose());
+	return quickPick;
+}
+
+export async function installExtension(
+	_context: ExtensionContext,
+	extensionid: string
+) {
+	var defaultComamnd = `./mvnw quarkus:add-extension -Dextensions="${extensionid}"`;
+	executeInTerminal(defaultComamnd, false);
 }

@@ -24,19 +24,22 @@
 		"url": "https://github.com/tsurdilo/quarkus-vsc.git"
 	},
 	"activationEvents": [
-		"onCommand:quarkus.generate"
+		"onCommand:quarkus.generate",
+		"onCommand:quarkus.enableextension"
 	],
 	"main": "./dist/extension",
 	"contributes": {
 		"commands": [{
-			"command": "quarkus.generate",
-			"title": "%contributes.commands.quarkus.generate%",
-			"category": "Quarkus",
-			"icon": {
-				"light": "resources/light/generate.svg",
-				"dark": "resources/dark/generate.svg"
+				"command": "quarkus.generate",
+				"title": "%contributes.commands.quarkus.generate%",
+				"category": "Quarkus"
+			},
+			{
+				"command": "quarkus.enableextension",
+				"title": "%contributes.commands.quarkus.enableextension%",
+				"category": "Quarkus"
 			}
-		}]
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "webpack --mode production",

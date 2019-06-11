@@ -16,8 +16,19 @@ async function doActivate(context: vscode.ExtensionContext): Promise<void> {
 		await vscode.window.withProgress(
 			{ location: vscode.ProgressLocation.Notification },
 			async (p: Progress<{}>) => {
-				p.report({ message: "generating Quarkus project ..." });
+				p.report({ message: "Generating Quarkus project ..." });
 				await QuarkusModule.generateProject(context);
+				p.report({ message: "finished." });
+			}
+		);
+	});
+
+	registerCommand(context, "quarkus.enableextension", async () => {
+		await vscode.window.withProgress(
+			{ location: vscode.ProgressLocation.Notification },
+			async (p: Progress<{}>) => {
+				p.report({ message: "Enabling Quarkus extension ..." });
+				await QuarkusModule.enableExtension(context);
 				p.report({ message: "finished." });
 			}
 		);

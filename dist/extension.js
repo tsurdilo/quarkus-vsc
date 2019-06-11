@@ -25880,8 +25880,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const vscode = __webpack_require__(/*! vscode */ "vscode");
+const vscode = __importStar(__webpack_require__(/*! vscode */ "vscode"));
 const contextutils_1 = __webpack_require__(/*! ./utils/contextutils */ "./src/utils/contextutils.ts");
 const quarkusmodule_1 = __webpack_require__(/*! ./modules/quarkusmodule */ "./src/modules/quarkusmodule.ts");
 function activate(context) {
@@ -25895,8 +25902,15 @@ function doActivate(context) {
     return __awaiter(this, void 0, void 0, function* () {
         registerCommand(context, "quarkus.generate", () => __awaiter(this, void 0, void 0, function* () {
             yield vscode.window.withProgress({ location: vscode.ProgressLocation.Notification }, (p) => __awaiter(this, void 0, void 0, function* () {
-                p.report({ message: "generating Quarkus project ..." });
+                p.report({ message: "Generating Quarkus project ..." });
                 yield quarkusmodule_1.QuarkusModule.generateProject(context);
+                p.report({ message: "finished." });
+            }));
+        }));
+        registerCommand(context, "quarkus.enableextension", () => __awaiter(this, void 0, void 0, function* () {
+            yield vscode.window.withProgress({ location: vscode.ProgressLocation.Notification }, (p) => __awaiter(this, void 0, void 0, function* () {
+                p.report({ message: "Enabling Quarkus extension ..." });
+                yield quarkusmodule_1.QuarkusModule.enableExtension(context);
                 p.report({ message: "finished." });
             }));
         }));
@@ -25929,6 +25943,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const vscode_1 = __webpack_require__(/*! vscode */ "vscode");
 const genutils_1 = __webpack_require__(/*! ../utils/genutils */ "./src/utils/genutils.ts");
 var QuarkusModule;
 (function (QuarkusModule) {
@@ -25939,6 +25954,18 @@ var QuarkusModule;
         });
     }
     QuarkusModule.generateProject = generateProject;
+    function enableExtension(_context) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (genutils_1.isQuarkusProject()) {
+                var quickInput = yield genutils_1.showExtensions(genutils_1.installExtension, _context);
+                quickInput.show();
+            }
+            else {
+                vscode_1.window.showErrorMessage("Unable to add extension - not inside a Quarkus project");
+            }
+        });
+    }
+    QuarkusModule.enableExtension = enableExtension;
 })(QuarkusModule = exports.QuarkusModule || (exports.QuarkusModule = {}));
 
 
@@ -25961,11 +25988,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const _ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-const fse = __webpack_require__(/*! fs-extra */ "./node_modules/fs-extra/lib/index.js");
-const os = __webpack_require__(/*! os */ "os");
-const path = __webpack_require__(/*! path */ "path");
+const _ = __importStar(__webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"));
+const fse = __importStar(__webpack_require__(/*! fs-extra */ "./node_modules/fs-extra/lib/index.js"));
+const os = __importStar(__webpack_require__(/*! os */ "os"));
+const path = __importStar(__webpack_require__(/*! path */ "path"));
 const vscode_1 = __webpack_require__(/*! vscode */ "vscode");
 const m2utils_1 = __webpack_require__(/*! ./m2utils */ "./src/utils/m2utils.ts");
 let EXTENSION_CONTEXT;
@@ -26056,9 +26090,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const cp = __webpack_require__(/*! child_process */ "child_process");
-const vscode = __webpack_require__(/*! vscode */ "vscode");
+const cp = __importStar(__webpack_require__(/*! child_process */ "child_process"));
+const vscode = __importStar(__webpack_require__(/*! vscode */ "vscode"));
 const quarkusoutputchannel_1 = __webpack_require__(/*! ./quarkusoutputchannel */ "./src/utils/quarkusoutputchannel.ts");
 function executeCommand(command, args, options = { shell: true }) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -26124,10 +26165,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode_1 = __webpack_require__(/*! vscode */ "vscode");
 const quarkusterminalutils_1 = __webpack_require__(/*! ./quarkusterminalutils */ "./src/utils/quarkusterminalutils.ts");
-const multistep_1 = __webpack_require__(/*! ./multistep */ "./src/utils/multistep.ts");
+const multistep_1 = __importDefault(__webpack_require__(/*! ./multistep */ "./src/utils/multistep.ts"));
+const path = __importStar(__webpack_require__(/*! path */ "path"));
+const fs = __importStar(__webpack_require__(/*! fs */ "fs"));
+const quarkusextensions_1 = __webpack_require__(/*! ./quarkusextensions */ "./src/utils/quarkusextensions.ts");
 function getDefaultGenState() {
     return {
         title: "",
@@ -26320,6 +26374,23 @@ function confirmGen(context, genFunction, genState) {
     });
 }
 exports.confirmGen = confirmGen;
+function confirmInstallExtension(context, installFunction, extensionid) {
+    return __awaiter(this, void 0, void 0, function* () {
+        vscode_1.window
+            .showInformationMessage(`About to add Quarkus extension ${extensionid}. Please confirm.`, { modal: true }, "Yes, add!")
+            .then((answer) => __awaiter(this, void 0, void 0, function* () {
+            if (answer === "Yes, add!") {
+                try {
+                    yield installFunction(context, extensionid);
+                }
+                catch (e) {
+                    vscode_1.window.showInformationMessage(`Error adding Quarkus extension: ${e}`);
+                }
+            }
+        }));
+    });
+}
+exports.confirmInstallExtension = confirmInstallExtension;
 function validateGenInput(name) {
     return __awaiter(this, void 0, void 0, function* () {
         yield new Promise(_resolve => setTimeout(_resolve, 1000));
@@ -26330,6 +26401,41 @@ function shouldResume() {
     // Could show a notification with the option to resume.
     return new Promise((_resolve, _reject) => { });
 }
+function isQuarkusProject() {
+    var rootPath = vscode_1.workspace.rootPath ? vscode_1.workspace.rootPath : __dirname;
+    var havePom = fs.existsSync(path.resolve(rootPath, "pom.xml"));
+    var haveMvnw = fs.existsSync(path.resolve(rootPath, "mvnw"));
+    var haveMvnwCmd = fs.existsSync(path.resolve(rootPath, "mvnw.cmd"));
+    return havePom && (haveMvnw || haveMvnwCmd);
+}
+exports.isQuarkusProject = isQuarkusProject;
+function showExtensions(genInstallFunction, context) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var quickPick = vscode_1.window.createQuickPick();
+        var items = quarkusextensions_1.getQuarkusExtensionsInfo();
+        quickPick.items = items;
+        quickPick.title = "Select project option";
+        quickPick.onDidChangeSelection((selection) => __awaiter(this, void 0, void 0, function* () {
+            if (selection[0]) {
+                yield confirmInstallExtension(context, genInstallFunction, selection[0].label);
+            }
+            else {
+                vscode_1.window.showErrorMessage(`Invalid extension ${selection[0]}`);
+            }
+            quickPick.dispose();
+        }));
+        quickPick.onDidHide(() => quickPick.dispose());
+        return quickPick;
+    });
+}
+exports.showExtensions = showExtensions;
+function installExtension(_context, extensionid) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var defaultComamnd = `./mvnw quarkus:add-extension -Dextensions="${extensionid}"`;
+        quarkusterminalutils_1.executeInTerminal(defaultComamnd, false);
+    });
+}
+exports.installExtension = installExtension;
 
 
 /***/ }),
@@ -26351,9 +26457,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const fse = __webpack_require__(/*! fs-extra */ "./node_modules/fs-extra/lib/index.js");
-const xml2js = __webpack_require__(/*! xml2js */ "./node_modules/xml2js/lib/xml2js.js");
+const fse = __importStar(__webpack_require__(/*! fs-extra */ "./node_modules/fs-extra/lib/index.js"));
+const xml2js = __importStar(__webpack_require__(/*! xml2js */ "./node_modules/xml2js/lib/xml2js.js"));
 var M2Utils;
 (function (M2Utils) {
     function parseXmlFile(xmlFilePath, options) {
@@ -26566,6 +26679,206 @@ exports.InputFlowAction = InputFlowAction;
 
 /***/ }),
 
+/***/ "./src/utils/quarkusextensions.ts":
+/*!****************************************!*\
+  !*** ./src/utils/quarkusextensions.ts ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function getQuarkusExtensionsInfo() {
+    var items = [
+        {
+            description: "Reactive Postgres Client",
+            label: "quarkus-reactive-pg-client"
+        },
+        {
+            description: "Mailer",
+            label: "quarkus-mailer"
+        },
+        {
+            description: "Eclipse Vert.x",
+            label: "quarkus-vertx"
+        },
+        {
+            description: "Undertow WebSockets",
+            label: "quarkus-undertow-websockets"
+        },
+        {
+            description: "Undertow",
+            label: "quarkus-undertow"
+        },
+        {
+            description: "Swagger UI",
+            label: "quarkus-swagger-ui"
+        },
+        {
+            description: "Spring DI compatibility layer",
+            label: "quarkus-spring-di"
+        },
+        {
+            description: "SmallRye REST Client",
+            label: "quarkus-smallrye-rest-client"
+        },
+        {
+            description: "SmallRye Reactive Messaging - Kafka Connector",
+            label: "quarkus-smallrye-reactive-messaging-kafka"
+        },
+        {
+            description: "SmallRye Reactive Messaging",
+            label: "quarkus-smallrye-reactive-messaging"
+        },
+        {
+            description: "SmallRye Reactive Type Converters",
+            label: "quarkus-smallrye-reactive-type-converters"
+        },
+        {
+            description: "SmallRye Reactive Streams Operators",
+            label: "quarkus-smallrye-reactive-streams-operators"
+        },
+        {
+            description: "SmallRye OpenTracing",
+            label: "quarkus-smallrye-opentracing"
+        },
+        {
+            description: "SmallRye OpenAPI",
+            label: "quarkus-smallrye-openapi"
+        },
+        {
+            description: "SmallRye Metrics",
+            label: "quarkus-smallrye-metrics"
+        },
+        {
+            description: "SmallRye JWT",
+            label: "quarkus-smallrye-jwt"
+        },
+        {
+            description: "SmallRye Health",
+            label: "quarkus-smallrye-health"
+        },
+        {
+            description: "SmallRye Fault Tolerance",
+            label: "quarkus-smallrye-fault-tolerance"
+        },
+        {
+            description: "SmallRye Context Propagation",
+            label: "quarkus-smallrye-context-propagation"
+        },
+        {
+            description: "Security",
+            label: "quarkus-elytron-security"
+        },
+        {
+            description: "Scheduler",
+            label: "quarkus-scheduler"
+        },
+        {
+            description: "RESTEasy - JSON-B",
+            label: "quarkus-resteasy-jsonb"
+        },
+        {
+            description: "RESTEasy",
+            label: "quarkus-resteasy"
+        },
+        {
+            description: "Narayana JTA - Transaction manager",
+            label: "quarkus-narayana-jta"
+        },
+        {
+            description: "AWS Lambda",
+            label: "quarkus-amazon-lambda"
+        },
+        {
+            description: "Kubernetes ",
+            label: "quarkus-kubernetes"
+        },
+        {
+            description: "Kotlin",
+            label: "quarkus-kotlin"
+        },
+        {
+            description: "Keycloak",
+            label: "quarkus-keycloak"
+        },
+        {
+            description: "JSON-P",
+            label: "quarkus-jsonp"
+        },
+        {
+            description: "JSON-B",
+            label: "quarkus-jsonb"
+        },
+        {
+            description: "DBC Driver - PostgreSQL",
+            label: "quarkus-jdbc-postgresql"
+        },
+        {
+            description: "JDBC Driver - MariaDB",
+            label: "quarkus-jdbc-mariadb"
+        },
+        {
+            description: "JDBC Driver - H2",
+            label: "quarkus-jdbc-h2"
+        },
+        {
+            description: "Infinispan Client",
+            label: "quarkus-infinispan-client"
+        },
+        {
+            description: "Hibernate Validator",
+            label: "quarkus-hibernate-validator"
+        },
+        {
+            description: "Hibernate Search + Elasticsearch",
+            label: "quarkus-hibernate-search-elasticsearch"
+        },
+        {
+            description: "Hibernate ORM with Panache",
+            label: "quarkus-hibernate-orm-panache"
+        },
+        {
+            description: "Hibernate ORM",
+            label: "quarkus-hibernate-orm"
+        },
+        {
+            description: "Flyway",
+            label: "quarkus-flyway"
+        },
+        {
+            description: "Camel Salesforce",
+            label: "quarkus-camel-salesforce"
+        },
+        {
+            description: "Camel Netty4 HTTP",
+            label: "quarkus-camel-netty4-http"
+        },
+        {
+            description: "Camel Infinispan",
+            label: "quarkus-camel-infinispan"
+        },
+        {
+            description: "Camel Core",
+            label: "quarkus-camel-core"
+        },
+        {
+            description: "Arc",
+            label: "quarkus-arc"
+        },
+        {
+            description: "Agroal - Database connection pool",
+            label: "quarkus-agroal"
+        }
+    ];
+    return items;
+}
+exports.getQuarkusExtensionsInfo = getQuarkusExtensionsInfo;
+
+
+/***/ }),
+
 /***/ "./src/utils/quarkusoutputchannel.ts":
 /*!*******************************************!*\
   !*** ./src/utils/quarkusoutputchannel.ts ***!
@@ -26575,8 +26888,15 @@ exports.InputFlowAction = InputFlowAction;
 
 "use strict";
 
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const vscode = __webpack_require__(/*! vscode */ "vscode");
+const vscode = __importStar(__webpack_require__(/*! vscode */ "vscode"));
 class QuarkusOutputChannel {
     constructor() {
         this.channel = vscode.window.createOutputChannel("Quarkus Extension");
@@ -26624,9 +26944,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const os = __webpack_require__(/*! os */ "os");
-const vscode = __webpack_require__(/*! vscode */ "vscode");
+const os = __importStar(__webpack_require__(/*! os */ "os"));
+const vscode = __importStar(__webpack_require__(/*! vscode */ "vscode"));
 const quarkusoutputchannel_1 = __webpack_require__(/*! ./quarkusoutputchannel */ "./src/utils/quarkusoutputchannel.ts");
 const settings_1 = __webpack_require__(/*! ./settings */ "./src/utils/settings.ts");
 const cputils_1 = __webpack_require__(/*! ./cputils */ "./src/utils/cputils.ts");
@@ -26845,12 +27172,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const child_process = __webpack_require__(/*! child_process */ "child_process");
-const fse = __webpack_require__(/*! fs-extra */ "./node_modules/fs-extra/lib/index.js");
-const md5 = __webpack_require__(/*! md5 */ "./node_modules/md5/md5.js");
-const path = __webpack_require__(/*! path */ "path");
-const vscode = __webpack_require__(/*! vscode */ "vscode");
+const child_process = __importStar(__webpack_require__(/*! child_process */ "child_process"));
+const fse = __importStar(__webpack_require__(/*! fs-extra */ "./node_modules/fs-extra/lib/index.js"));
+const md5_1 = __importDefault(__webpack_require__(/*! md5 */ "./node_modules/md5/md5.js"));
+const path = __importStar(__webpack_require__(/*! path */ "path"));
+const vscode = __importStar(__webpack_require__(/*! vscode */ "vscode"));
 const quarkusoutputchannel_1 = __webpack_require__(/*! ./quarkusoutputchannel */ "./src/utils/quarkusoutputchannel.ts");
 const quarkusterminal_1 = __webpack_require__(/*! ./quarkusterminal */ "./src/utils/quarkusterminal.ts");
 const settings_1 = __webpack_require__(/*! ./settings */ "./src/utils/settings.ts");
@@ -27004,8 +27341,8 @@ function readFileIfExists(filepath) {
     });
 }
 function getTempTolder(identifier) {
-    const outputPath = contextutils_1.getPathToWorkspaceStorage(md5(identifier));
-    return outputPath ? outputPath : contextutils_1.getPathToTempFolder(md5(identifier));
+    const outputPath = contextutils_1.getPathToWorkspaceStorage(md5_1.default(identifier));
+    return outputPath ? outputPath : contextutils_1.getPathToTempFolder(md5_1.default(identifier));
 }
 
 

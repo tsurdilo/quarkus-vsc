@@ -2,7 +2,7 @@
 	"name": "quarkus-vsc",
 	"displayName": "Quarkus VSC Extension",
 	"description": "%description%",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"icon": "resources/logo.png",
 	"publisher": "tsurdilovic",
 	"author": "Tihomir Surdilovic",
@@ -30,7 +30,8 @@
 	],
 	"main": "./dist/extension",
 	"contributes": {
-		"commands": [{
+		"commands": [
+			{
 				"command": "quarkus.generate",
 				"title": "%contributes.commands.quarkus.generate%",
 				"category": "Quarkus"

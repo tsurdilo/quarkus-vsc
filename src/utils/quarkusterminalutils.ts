@@ -1,6 +1,6 @@
 import * as child_process from "child_process";
 import * as fse from "fs-extra";
-import md5 from "md5";
+import * as md5 from "md5";
 import * as path from "path";
 import * as vscode from "vscode";
 import { quarkusOutputChannel } from "./quarkusoutputchannel";

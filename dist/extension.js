@@ -25880,15 +25880,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const vscode = __importStar(__webpack_require__(/*! vscode */ "vscode"));
+const vscode = __webpack_require__(/*! vscode */ "vscode");
 const contextutils_1 = __webpack_require__(/*! ./utils/contextutils */ "./src/utils/contextutils.ts");
 const quarkusmodule_1 = __webpack_require__(/*! ./modules/quarkusmodule */ "./src/modules/quarkusmodule.ts");
 function activate(context) {
@@ -25988,18 +25981,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const _ = __importStar(__webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"));
-const fse = __importStar(__webpack_require__(/*! fs-extra */ "./node_modules/fs-extra/lib/index.js"));
-const os = __importStar(__webpack_require__(/*! os */ "os"));
-const path = __importStar(__webpack_require__(/*! path */ "path"));
+const _ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+const fse = __webpack_require__(/*! fs-extra */ "./node_modules/fs-extra/lib/index.js");
+const os = __webpack_require__(/*! os */ "os");
+const path = __webpack_require__(/*! path */ "path");
 const vscode_1 = __webpack_require__(/*! vscode */ "vscode");
 const m2utils_1 = __webpack_require__(/*! ./m2utils */ "./src/utils/m2utils.ts");
 let EXTENSION_CONTEXT;
@@ -26090,16 +26076,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const cp = __importStar(__webpack_require__(/*! child_process */ "child_process"));
-const vscode = __importStar(__webpack_require__(/*! vscode */ "vscode"));
+const cp = __webpack_require__(/*! child_process */ "child_process");
+const vscode = __webpack_require__(/*! vscode */ "vscode");
 const quarkusoutputchannel_1 = __webpack_require__(/*! ./quarkusoutputchannel */ "./src/utils/quarkusoutputchannel.ts");
 function executeCommand(command, args, options = { shell: true }) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -26165,22 +26144,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode_1 = __webpack_require__(/*! vscode */ "vscode");
 const quarkusterminalutils_1 = __webpack_require__(/*! ./quarkusterminalutils */ "./src/utils/quarkusterminalutils.ts");
-const multistep_1 = __importDefault(__webpack_require__(/*! ./multistep */ "./src/utils/multistep.ts"));
-const path = __importStar(__webpack_require__(/*! path */ "path"));
-const fs = __importStar(__webpack_require__(/*! fs */ "fs"));
+const multistep_1 = __webpack_require__(/*! ./multistep */ "./src/utils/multistep.ts");
+const path = __webpack_require__(/*! path */ "path");
+const fs = __webpack_require__(/*! fs */ "fs");
 const quarkusextensions_1 = __webpack_require__(/*! ./quarkusextensions */ "./src/utils/quarkusextensions.ts");
 function getDefaultGenState() {
     return {
@@ -26457,16 +26426,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const fse = __importStar(__webpack_require__(/*! fs-extra */ "./node_modules/fs-extra/lib/index.js"));
-const xml2js = __importStar(__webpack_require__(/*! xml2js */ "./node_modules/xml2js/lib/xml2js.js"));
+const fse = __webpack_require__(/*! fs-extra */ "./node_modules/fs-extra/lib/index.js");
+const xml2js = __webpack_require__(/*! xml2js */ "./node_modules/xml2js/lib/xml2js.js");
 var M2Utils;
 (function (M2Utils) {
     function parseXmlFile(xmlFilePath, options) {
@@ -26690,191 +26652,425 @@ exports.InputFlowAction = InputFlowAction;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 function getQuarkusExtensionsInfo() {
-    var items = [
-        {
-            description: "Reactive Postgres Client",
-            label: "quarkus-reactive-pg-client"
-        },
-        {
-            description: "Mailer",
-            label: "quarkus-mailer"
-        },
-        {
-            description: "Eclipse Vert.x",
-            label: "quarkus-vertx"
-        },
-        {
-            description: "Undertow WebSockets",
-            label: "quarkus-undertow-websockets"
-        },
-        {
-            description: "Undertow",
-            label: "quarkus-undertow"
-        },
-        {
-            description: "Swagger UI",
-            label: "quarkus-swagger-ui"
-        },
-        {
-            description: "Spring DI compatibility layer",
-            label: "quarkus-spring-di"
-        },
-        {
-            description: "SmallRye REST Client",
-            label: "quarkus-smallrye-rest-client"
-        },
-        {
-            description: "SmallRye Reactive Messaging - Kafka Connector",
-            label: "quarkus-smallrye-reactive-messaging-kafka"
-        },
-        {
-            description: "SmallRye Reactive Messaging",
-            label: "quarkus-smallrye-reactive-messaging"
-        },
-        {
-            description: "SmallRye Reactive Type Converters",
-            label: "quarkus-smallrye-reactive-type-converters"
-        },
-        {
-            description: "SmallRye Reactive Streams Operators",
-            label: "quarkus-smallrye-reactive-streams-operators"
-        },
-        {
-            description: "SmallRye OpenTracing",
-            label: "quarkus-smallrye-opentracing"
-        },
-        {
-            description: "SmallRye OpenAPI",
-            label: "quarkus-smallrye-openapi"
-        },
-        {
-            description: "SmallRye Metrics",
-            label: "quarkus-smallrye-metrics"
-        },
-        {
-            description: "SmallRye JWT",
-            label: "quarkus-smallrye-jwt"
-        },
-        {
-            description: "SmallRye Health",
-            label: "quarkus-smallrye-health"
-        },
-        {
-            description: "SmallRye Fault Tolerance",
-            label: "quarkus-smallrye-fault-tolerance"
-        },
-        {
-            description: "SmallRye Context Propagation",
-            label: "quarkus-smallrye-context-propagation"
-        },
-        {
-            description: "Security",
-            label: "quarkus-elytron-security"
-        },
-        {
-            description: "Scheduler",
-            label: "quarkus-scheduler"
-        },
-        {
-            description: "RESTEasy - JSON-B",
-            label: "quarkus-resteasy-jsonb"
-        },
-        {
-            description: "RESTEasy",
-            label: "quarkus-resteasy"
-        },
-        {
-            description: "Narayana JTA - Transaction manager",
-            label: "quarkus-narayana-jta"
-        },
-        {
-            description: "AWS Lambda",
-            label: "quarkus-amazon-lambda"
-        },
-        {
-            description: "Kubernetes ",
-            label: "quarkus-kubernetes"
-        },
-        {
-            description: "Kotlin",
-            label: "quarkus-kotlin"
-        },
-        {
-            description: "Keycloak",
-            label: "quarkus-keycloak"
-        },
-        {
-            description: "JSON-P",
-            label: "quarkus-jsonp"
-        },
-        {
-            description: "JSON-B",
-            label: "quarkus-jsonb"
-        },
-        {
-            description: "DBC Driver - PostgreSQL",
-            label: "quarkus-jdbc-postgresql"
-        },
-        {
-            description: "JDBC Driver - MariaDB",
-            label: "quarkus-jdbc-mariadb"
-        },
-        {
-            description: "JDBC Driver - H2",
-            label: "quarkus-jdbc-h2"
-        },
-        {
-            description: "Infinispan Client",
-            label: "quarkus-infinispan-client"
-        },
-        {
-            description: "Hibernate Validator",
-            label: "quarkus-hibernate-validator"
-        },
-        {
-            description: "Hibernate Search + Elasticsearch",
-            label: "quarkus-hibernate-search-elasticsearch"
-        },
-        {
-            description: "Hibernate ORM with Panache",
-            label: "quarkus-hibernate-orm-panache"
-        },
-        {
-            description: "Hibernate ORM",
-            label: "quarkus-hibernate-orm"
-        },
-        {
-            description: "Flyway",
-            label: "quarkus-flyway"
-        },
-        {
-            description: "Camel Salesforce",
-            label: "quarkus-camel-salesforce"
-        },
-        {
-            description: "Camel Netty4 HTTP",
-            label: "quarkus-camel-netty4-http"
-        },
-        {
-            description: "Camel Infinispan",
-            label: "quarkus-camel-infinispan"
-        },
-        {
-            description: "Camel Core",
-            label: "quarkus-camel-core"
-        },
-        {
-            description: "Arc",
-            label: "quarkus-arc"
-        },
-        {
-            description: "Agroal - Database connection pool",
-            label: "quarkus-agroal"
-        }
-    ];
+    var rawData = getRawExtensionData();
+    var items = [];
+    rawData.forEach(function (item) {
+        var newQuickPickItem = {
+            description: item.name,
+            label: item.groupId + ":" + item.artifactId
+        };
+        items.push(newQuickPickItem);
+    });
     return items;
 }
 exports.getQuarkusExtensionsInfo = getQuarkusExtensionsInfo;
+// needs to be updated for each quarkus release
+function getRawExtensionData() {
+    return [
+        {
+            name: "Agroal - Database connection pool",
+            labels: ["agroal", "database-connection-pool"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-agroal"
+        },
+        {
+            name: "Arc",
+            labels: ["arc", "cdi", "dependency-injection", "di"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-arc",
+            guide: "https://quarkus.io/guides/cdi-reference"
+        },
+        {
+            name: "Camel Core",
+            labels: ["camel-core", "camel"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-camel-core"
+        },
+        {
+            name: "Camel Infinispan",
+            labels: ["camel-infinispan", "camel"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-camel-infinispan"
+        },
+        {
+            name: "Camel Netty4 HTTP",
+            labels: ["camel-netty4-http", "camel"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-camel-netty4-http"
+        },
+        {
+            name: "Camel Salesforce",
+            labels: ["camel-salesforce", "camel"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-camel-salesforce"
+        },
+        {
+            name: "Flyway",
+            labels: ["flyway", "database", "data"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-flyway",
+            guide: "https://quarkus.io/guides/flyway-guide"
+        },
+        {
+            name: "Hibernate ORM",
+            labels: ["hibernate-orm", "jpa", "hibernate"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-hibernate-orm",
+            guide: "https://quarkus.io/guides/hibernate-orm-guide"
+        },
+        {
+            name: "Hibernate ORM with Panache",
+            labels: ["hibernate-orm-panache", "panache", "hibernate", "jpa"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-hibernate-orm-panache",
+            guide: "https://quarkus.io/guides/hibernate-orm-panache-guide"
+        },
+        {
+            name: "Hibernate Search + Elasticsearch",
+            labels: [
+                "hibernate-search-elasticsearch",
+                "search",
+                "full-text",
+                "hibernate",
+                "elasticsearch"
+            ],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-hibernate-search-elasticsearch",
+            guide: "https://quarkus.io/guides/hibernate-search-guide"
+        },
+        {
+            name: "Hibernate Validator",
+            labels: ["hibernate-validator", "bean-validation", "validation"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-hibernate-validator",
+            guide: "https://quarkus.io/guides/validation-guide"
+        },
+        {
+            name: "Infinispan Client",
+            labels: ["infinispan-client", "data-grid-client", "infinispan"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-infinispan-client",
+            guide: "https://quarkus.io/guides/infinispan-client-guide"
+        },
+        {
+            name: "JDBC Driver - H2",
+            labels: ["jdbc-h2", "jdbc", "h2"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-jdbc-h2"
+        },
+        {
+            name: "JDBC Driver - MariaDB",
+            labels: ["jdbc-mariadb", "jdbc", "mariadb"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-jdbc-mariadb"
+        },
+        {
+            name: "JDBC Driver - PostgreSQL",
+            labels: ["jdbc-postgresql", "jdbc", "postgresql"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-jdbc-postgresql"
+        },
+        {
+            name: "JSON-B",
+            labels: ["jsonb", "json-b", "json"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-jsonb",
+            guide: "https://quarkus.io/guides/rest-json-guide"
+        },
+        {
+            name: "JSON-P",
+            labels: ["jsonp", "json-p", "json"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-jsonp"
+        },
+        {
+            name: "Keycloak",
+            labels: ["keycloak", "oauth2", "openid-connect"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-keycloak",
+            guide: "https://quarkus.io/guides/keycloak-guide"
+        },
+        {
+            name: "Kotlin",
+            labels: ["kotlin"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-kotlin",
+            guide: "https://quarkus.io/guides/kotlin"
+        },
+        {
+            name: "Kubernetes",
+            labels: ["kubernetes"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-kubernetes",
+            guide: "https://quarkus.io/guides/kubernetes-guide"
+        },
+        {
+            name: "AWS Lambda",
+            labels: ["lambda", "aws"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-amazon-lambda"
+        },
+        {
+            name: "Narayana JTA - Transaction manager",
+            labels: [
+                "narayana-jta",
+                "narayana",
+                "jta",
+                "transactions",
+                "transaction",
+                "tx",
+                "txs"
+            ],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-narayana-jta",
+            guide: "https://quarkus.io/guides/transaction-guide"
+        },
+        {
+            name: "RESTEasy",
+            labels: ["resteasy", "jaxrs", "web", "rest"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-resteasy",
+            guide: "https://quarkus.io/guides/rest-json-guide"
+        },
+        {
+            name: "RESTEasy - JSON-B",
+            labels: [
+                "resteasy-jsonb",
+                "jaxrs-json",
+                "resteasy-json",
+                "resteasy",
+                "jaxrs",
+                "json",
+                "jsonb"
+            ],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-resteasy-jsonb",
+            guide: "https://quarkus.io/guides/rest-json-guide"
+        },
+        {
+            name: "Scheduler",
+            labels: ["scheduler", "tasks", "periodic-tasks"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-scheduler",
+            guide: "https://quarkus.io/guides/scheduled-guide"
+        },
+        {
+            name: "Security",
+            labels: ["security"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-elytron-security",
+            guide: "https://quarkus.io/guides/security-guide"
+        },
+        {
+            name: "SmallRye Context Propagation",
+            labels: [
+                "smallrye-context-propagation",
+                "microprofile-context-propagation",
+                "context-propagation",
+                "context",
+                "reactive"
+            ],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-smallrye-context-propagation"
+        },
+        {
+            name: "SmallRye Fault Tolerance",
+            labels: [
+                "smallrye-fault-tolerance",
+                "fault-tolerance",
+                "microprofile-fault-tolerance",
+                "circuit-breaker",
+                "bulkhead"
+            ],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-smallrye-fault-tolerance"
+        },
+        {
+            name: "SmallRye Health",
+            labels: [
+                "smallrye-health",
+                "health-check",
+                "health",
+                "microprofile-health",
+                "microprofile-health-check"
+            ],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-smallrye-health",
+            guide: "https://quarkus.io/guides/health-guide"
+        },
+        {
+            name: "SmallRye JWT",
+            labels: ["smallrye-jwt", "jwt", "json-web-token", "rbac"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-smallrye-jwt",
+            guide: "https://quarkus.io/guides/jwt-guide"
+        },
+        {
+            name: "SmallRye Metrics",
+            labels: [
+                "smallrye-metrics",
+                "metrics",
+                "metric",
+                "prometheus",
+                "monitoring"
+            ],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-smallrye-metrics",
+            guide: "https://quarkus.io/guides/metrics-guide"
+        },
+        {
+            name: "SmallRye OpenAPI",
+            labels: ["smallrye-openapi", "openapi", "open-api"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-smallrye-openapi",
+            guide: "https://quarkus.io/guides/openapi-swaggerui-guide"
+        },
+        {
+            name: "SmallRye OpenTracing",
+            labels: [
+                "smallrye-opentracing",
+                "opentracing",
+                "tracing",
+                "distributed-tracing",
+                "jaeger"
+            ],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-smallrye-opentracing",
+            guide: "https://quarkus.io/guides/opentracing-guide"
+        },
+        {
+            name: "SmallRye Reactive Streams Operators",
+            labels: [
+                "smallrye-reactive-streams-operators",
+                "smallrye-reactive-streams",
+                "reactive-streams-operators",
+                "reactive-streams",
+                "microprofile-reactive-streams",
+                "reactive"
+            ],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-smallrye-reactive-streams-operators"
+        },
+        {
+            name: "SmallRye Reactive Type Converters",
+            labels: [
+                "smallrye-reactive-type-converters",
+                "reactive-type-converters",
+                "reactive-streams-operators",
+                "reactive-streams",
+                "microprofile-reactive-streams",
+                "reactive"
+            ],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-smallrye-reactive-type-converters"
+        },
+        {
+            name: "SmallRye Reactive Messaging",
+            labels: [
+                "smallrye-reactive-messaging",
+                "reactive-messaging",
+                "reactive"
+            ],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-smallrye-reactive-messaging",
+            guide: "https://quarkus.io/guides/async-message-passing"
+        },
+        {
+            name: "SmallRye Reactive Messaging - Kafka Connector",
+            labels: ["kafka", "reactive-kafka"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-smallrye-reactive-messaging-kafka",
+            guide: "https://quarkus.io/guides/kafka-guide"
+        },
+        {
+            name: "SmallRye REST Client",
+            labels: [
+                "smallrye-rest-client",
+                "rest-client",
+                "web-client",
+                "microprofile-rest-client"
+            ],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-smallrye-rest-client",
+            guide: "https://quarkus.io/guides/rest-client-guide"
+        },
+        {
+            name: "Spring DI compatibility layer",
+            labels: ["spring-di"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-spring-di",
+            guide: "https://quarkus.io/guides/spring-di-guide"
+        },
+        {
+            name: "Swagger UI",
+            labels: ["swagger-ui"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-swagger-ui",
+            guide: "https://quarkus.io/guides/openapi-swaggerui-guide"
+        },
+        {
+            name: "Undertow",
+            labels: ["undertow", "servlet"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-undertow"
+        },
+        {
+            name: "Undertow WebSockets",
+            labels: [
+                "undertow-websockets",
+                "undertow-websocket",
+                "websocket",
+                "websockets",
+                "web-socket",
+                "web-sockets"
+            ],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-undertow-websockets",
+            guide: "https://quarkus.io/guides/websocket-guide"
+        },
+        {
+            name: "Eclipse Vert.x",
+            labels: ["eclipse-vert.x", "vertx", "vert.x", "reactive"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-vertx",
+            guide: "https://quarkus.io/guides/using-vertx"
+        },
+        {
+            name: "Mailer",
+            labels: ["mail", "mailer"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-mailer",
+            guide: "https://quarkus.io/guides/sending-emails"
+        },
+        {
+            name: "Reactive Postgres Client",
+            labels: [
+                "eclipse-vert.x",
+                "vertx",
+                "vert.x",
+                "reactive",
+                "database",
+                "data",
+                "postgresql"
+            ],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-reactive-pg-client"
+        },
+        {
+            name: "Apache Kafka Client",
+            labels: ["kafka"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-kafka-client"
+        },
+        {
+            name: "Apache Kafka Streams",
+            labels: ["kafka", "kafka-streams"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-kafka-streams"
+        }
+    ];
+}
+exports.getRawExtensionData = getRawExtensionData;
 
 
 /***/ }),
@@ -26888,15 +27084,8 @@ exports.getQuarkusExtensionsInfo = getQuarkusExtensionsInfo;
 
 "use strict";
 
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const vscode = __importStar(__webpack_require__(/*! vscode */ "vscode"));
+const vscode = __webpack_require__(/*! vscode */ "vscode");
 class QuarkusOutputChannel {
     constructor() {
         this.channel = vscode.window.createOutputChannel("Quarkus Extension");
@@ -26944,16 +27133,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const os = __importStar(__webpack_require__(/*! os */ "os"));
-const vscode = __importStar(__webpack_require__(/*! vscode */ "vscode"));
+const os = __webpack_require__(/*! os */ "os");
+const vscode = __webpack_require__(/*! vscode */ "vscode");
 const quarkusoutputchannel_1 = __webpack_require__(/*! ./quarkusoutputchannel */ "./src/utils/quarkusoutputchannel.ts");
 const settings_1 = __webpack_require__(/*! ./settings */ "./src/utils/settings.ts");
 const cputils_1 = __webpack_require__(/*! ./cputils */ "./src/utils/cputils.ts");
@@ -27172,22 +27354,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const child_process = __importStar(__webpack_require__(/*! child_process */ "child_process"));
-const fse = __importStar(__webpack_require__(/*! fs-extra */ "./node_modules/fs-extra/lib/index.js"));
-const md5_1 = __importDefault(__webpack_require__(/*! md5 */ "./node_modules/md5/md5.js"));
-const path = __importStar(__webpack_require__(/*! path */ "path"));
-const vscode = __importStar(__webpack_require__(/*! vscode */ "vscode"));
+const child_process = __webpack_require__(/*! child_process */ "child_process");
+const fse = __webpack_require__(/*! fs-extra */ "./node_modules/fs-extra/lib/index.js");
+const md5 = __webpack_require__(/*! md5 */ "./node_modules/md5/md5.js");
+const path = __webpack_require__(/*! path */ "path");
+const vscode = __webpack_require__(/*! vscode */ "vscode");
 const quarkusoutputchannel_1 = __webpack_require__(/*! ./quarkusoutputchannel */ "./src/utils/quarkusoutputchannel.ts");
 const quarkusterminal_1 = __webpack_require__(/*! ./quarkusterminal */ "./src/utils/quarkusterminal.ts");
 const settings_1 = __webpack_require__(/*! ./settings */ "./src/utils/settings.ts");
@@ -27341,8 +27513,8 @@ function readFileIfExists(filepath) {
     });
 }
 function getTempTolder(identifier) {
-    const outputPath = contextutils_1.getPathToWorkspaceStorage(md5_1.default(identifier));
-    return outputPath ? outputPath : contextutils_1.getPathToTempFolder(md5_1.default(identifier));
+    const outputPath = contextutils_1.getPathToWorkspaceStorage(md5(identifier));
+    return outputPath ? outputPath : contextutils_1.getPathToTempFolder(md5(identifier));
 }
 
 

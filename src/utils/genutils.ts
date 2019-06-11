@@ -287,7 +287,7 @@ export async function showExtensions(
 	var items: QuickPickItem[] = getQuarkusExtensionsInfo();
 
 	quickPick.items = items;
-	quickPick.title = "Select project option";
+	quickPick.title = "Select extension to add";
 	quickPick.onDidChangeSelection(async selection => {
 		if (selection[0]) {
 			await confirmInstallExtension(

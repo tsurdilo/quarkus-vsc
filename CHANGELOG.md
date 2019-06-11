@@ -2,7 +2,12 @@
 
 All notable changes to the "quarkus-vsc" extension will be documented in this file.
 
-## 0.2.0 – 2019-06-10
+## 0.3.0 – 2019-07-10
+
+-   Minor text fixes
+-   Updated Readme
+
+## 0.2.0 – 2019-07-10
 
 -   Fixed issues with adding extensions
 -   Updated extensions list

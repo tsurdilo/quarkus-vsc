@@ -26383,7 +26383,7 @@ function showExtensions(genInstallFunction, context) {
         var quickPick = vscode_1.window.createQuickPick();
         var items = quarkusextensions_1.getQuarkusExtensionsInfo();
         quickPick.items = items;
-        quickPick.title = "Select project option";
+        quickPick.title = "Select extension to add";
         quickPick.onDidChangeSelection((selection) => __awaiter(this, void 0, void 0, function* () {
             if (selection[0]) {
                 yield confirmInstallExtension(context, genInstallFunction, selection[0].label);

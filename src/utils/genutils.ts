@@ -25,7 +25,16 @@ export type GenInfo = {
 	className: string;
 	path: string;
 	extensions?: string[];
+	addmetrics?: QuickPickItem;
+	addtracing?: QuickPickItem;
+	addkubernetes?: QuickPickItem;
+	addhealthcheck?: QuickPickItem;
 };
+
+const metricsInfo: QuickPickItem[] = [{ label: "Yes" }, { label: "No" }];
+const tracingInfo: QuickPickItem[] = [{ label: "Yes" }, { label: "No" }];
+const kubernetesInfo: QuickPickItem[] = [{ label: "Yes" }, { label: "No" }];
+const healthcheckInfo: QuickPickItem[] = [{ label: "Yes" }, { label: "No" }];
 
 export function getDefaultGenState(): GenState {
 	return {
@@ -98,6 +107,10 @@ export async function genDefaultProject(
 	executeInTerminal(defaultComamnd, false);
 }
 
+function delay(ms: number) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export async function genConfigProjectRun(
 	_context: ExtensionContext,
 	genState: GenState
@@ -109,7 +122,58 @@ export async function genConfigProjectRun(
     -DclassName="${genState.genInfo.className}" \
     -Dpath="${genState.genInfo.path}"`;
 
-	executeInTerminal(defaultComamnd, false);
+	await executeInTerminal(defaultComamnd, false);
+
+	// wait for generation to write to fs
+	await delay(4000);
+
+	var rootPath = workspace.rootPath ? workspace.rootPath : __dirname;
+	var isGenInDir: boolean = fs.existsSync(
+		path.resolve(rootPath, genState.genInfo.projectArtifactId)
+	);
+
+	if (isGenInDir) {
+		await executeInTerminal(
+			`cd ${genState.genInfo.projectArtifactId}`,
+			false
+		);
+	}
+
+	if (
+		genState.genInfo.addmetrics &&
+		genState.genInfo.addmetrics.label === "Yes"
+	) {
+		var addMetricsCommand =
+			'./mvnw quarkus:add-extension -Dextensions="io.quarkus:quarkus-smallrye-metrics"';
+		await executeInTerminal(addMetricsCommand, false);
+	}
+
+	if (
+		genState.genInfo.addtracing &&
+		genState.genInfo.addtracing.label === "Yes"
+	) {
+		var addTracingCommand =
+			'./mvnw quarkus:add-extension -Dextensions="io.quarkus:quarkus-smallrye-opentracing"';
+		await executeInTerminal(addTracingCommand, false);
+	}
+
+	if (
+		genState.genInfo.addhealthcheck &&
+		genState.genInfo.addhealthcheck.label === "Yes"
+	) {
+		var addhealthcheck =
+			'./mvnw quarkus:add-extension -Dextensions="io.quarkus:quarkus-smallrye-health"';
+		await executeInTerminal(addhealthcheck, false);
+	}
+
+	if (
+		genState.genInfo.addkubernetes &&
+		genState.genInfo.addkubernetes.label === "Yes"
+	) {
+		var addKubernetes =
+			'./mvnw quarkus:add-extension -Dextensions="io.quarkus:quarkus-kubernetes"';
+		await executeInTerminal(addKubernetes, false);
+	}
 }
 
 export async function genConfigProject(
@@ -127,7 +191,7 @@ export async function genConfigProject(
 		genState.genInfo.projectGroupId = await input.showInputBox({
 			title,
 			step: 1,
-			totalSteps: 5,
+			totalSteps: 9,
 			value:
 				typeof genState.genInfo.projectGroupId === "string"
 					? genState.genInfo.projectGroupId
@@ -143,7 +207,7 @@ export async function genConfigProject(
 		genState.genInfo.projectArtifactId = await input.showInputBox({
 			title,
 			step: 2,
-			totalSteps: 5,
+			totalSteps: 9,
 			value:
 				typeof genState.genInfo.projectArtifactId === "string"
 					? genState.genInfo.projectArtifactId
@@ -159,7 +223,7 @@ export async function genConfigProject(
 		genState.genInfo.projectVersion = await input.showInputBox({
 			title,
 			step: 3,
-			totalSteps: 5,
+			totalSteps: 9,
 			value:
 				typeof genState.genInfo.projectVersion === "string"
 					? genState.genInfo.projectVersion
@@ -175,7 +239,7 @@ export async function genConfigProject(
 		genState.genInfo.path = await input.showInputBox({
 			title,
 			step: 4,
-			totalSteps: 5,
+			totalSteps: 9,
 			value:
 				typeof genState.genInfo.path === "string"
 					? genState.genInfo.path
@@ -191,7 +255,7 @@ export async function genConfigProject(
 		genState.genInfo.className = await input.showInputBox({
 			title,
 			step: 5,
-			totalSteps: 5,
+			totalSteps: 9,
 			value:
 				typeof genState.genInfo.className === "string"
 					? genState.genInfo.className
@@ -200,6 +264,80 @@ export async function genConfigProject(
 			validate: validateGenInput,
 			shouldResume: shouldResume
 		});
+		return (input: MultiStepInput) => pickAddMetrics(input, genState);
+	}
+
+	async function pickAddMetrics(input: MultiStepInput, genState: GenState) {
+		const pick = await input.showQuickPick({
+			title,
+			step: 6,
+			totalSteps: 9,
+			placeholder: "Add metrics?",
+			items: metricsInfo,
+			activeItem:
+				typeof genState.genInfo.addmetrics !== "string"
+					? genState.genInfo.addmetrics
+					: undefined,
+			shouldResume: shouldResume
+		});
+		genState.genInfo.addmetrics = pick;
+		return (input: MultiStepInput) => pickAddTracing(input, genState);
+	}
+
+	async function pickAddTracing(input: MultiStepInput, genState: GenState) {
+		const pick = await input.showQuickPick({
+			title,
+			step: 7,
+			totalSteps: 9,
+			placeholder: "Add tracing?",
+			items: tracingInfo,
+			activeItem:
+				typeof genState.genInfo.addtracing !== "string"
+					? genState.genInfo.addtracing
+					: undefined,
+			shouldResume: shouldResume
+		});
+		genState.genInfo.addtracing = pick;
+		return (input: MultiStepInput) => pickAddKubernetes(input, genState);
+	}
+
+	async function pickAddKubernetes(
+		input: MultiStepInput,
+		genState: GenState
+	) {
+		const pick = await input.showQuickPick({
+			title,
+			step: 8,
+			totalSteps: 9,
+			placeholder: "Add Kubernetes support?",
+			items: kubernetesInfo,
+			activeItem:
+				typeof genState.genInfo.addkubernetes !== "string"
+					? genState.genInfo.addkubernetes
+					: undefined,
+			shouldResume: shouldResume
+		});
+		genState.genInfo.addkubernetes = pick;
+		return (input: MultiStepInput) => pickAddHealtCheck(input, genState);
+	}
+
+	async function pickAddHealtCheck(
+		input: MultiStepInput,
+		genState: GenState
+	) {
+		const pick = await input.showQuickPick({
+			title,
+			step: 9,
+			totalSteps: 9,
+			placeholder: "Add Health Check?",
+			items: healthcheckInfo,
+			activeItem:
+				typeof genState.genInfo.addhealthcheck !== "string"
+					? genState.genInfo.addhealthcheck
+					: undefined,
+			shouldResume: shouldResume
+		});
+		genState.genInfo.addhealthcheck = pick;
 	}
 
 	await collectInputs();
@@ -310,5 +448,5 @@ export async function installExtension(
 	extensionid: string
 ) {
 	var defaultComamnd = `./mvnw quarkus:add-extension -Dextensions="${extensionid}"`;
-	executeInTerminal(defaultComamnd, false);
+	await executeInTerminal(defaultComamnd, false);
 }

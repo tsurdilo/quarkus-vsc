@@ -2,11 +2,11 @@
 
 All notable changes to the "quarkus-vsc" extension will be documented in this file.
 
-## 0.7.0 – 2019-06-13
+## 0.9.0 – 2019-06-13
 
 -   Added the "Run in dev mode" command
 
-## 0.6.0 – 2019-06-12
+## 0.7.0 – 2019-06-12
 
 -   Added config option for metrics
 -   Added config option for tracing

@@ -3339,43 +3339,6 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 
-/***/ "./node_modules/is-wsl/index.js":
-/*!**************************************!*\
-  !*** ./node_modules/is-wsl/index.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-const os = __webpack_require__(/*! os */ "os");
-const fs = __webpack_require__(/*! fs */ "fs");
-
-const isWsl = () => {
-	if (process.platform !== 'linux') {
-		return false;
-	}
-
-	if (os.release().includes('Microsoft')) {
-		return true;
-	}
-
-	try {
-		return fs.readFileSync('/proc/version', 'utf8').includes('Microsoft');
-	} catch (err) {
-		return false;
-	}
-};
-
-if (process.env.__IS_WSL_TEST__) {
-	module.exports = isWsl;
-} else {
-	module.exports = isWsl();
-}
-
-
-/***/ }),
-
 /***/ "./node_modules/jsonfile/index.js":
 /*!****************************************!*\
   !*** ./node_modules/jsonfile/index.js ***!
@@ -20803,131 +20766,6 @@ module.exports = jsonfile
 
 /***/ }),
 
-/***/ "./node_modules/open/index.js":
-/*!************************************!*\
-  !*** ./node_modules/open/index.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-const {promisify} = __webpack_require__(/*! util */ "util");
-const path = __webpack_require__(/*! path */ "path");
-const childProcess = __webpack_require__(/*! child_process */ "child_process");
-const isWsl = __webpack_require__(/*! is-wsl */ "./node_modules/is-wsl/index.js");
-
-const pExecFile = promisify(childProcess.execFile);
-
-// Convert a path from WSL format to Windows format:
-// `/mnt/c/Program Files/Example/MyApp.exe` → `C:\Program Files\Example\MyApp.exe``
-const wslToWindowsPath = async path => {
-	const {stdout} = await pExecFile('wslpath', ['-w', path]);
-	return stdout.trim();
-};
-
-module.exports = async (target, options) => {
-	if (typeof target !== 'string') {
-		throw new TypeError('Expected a `target`');
-	}
-
-	options = {
-		wait: false,
-		...options
-	};
-
-	let command;
-	let appArguments = [];
-	const cliArguments = [];
-	const childProcessOptions = {};
-
-	if (Array.isArray(options.app)) {
-		appArguments = options.app.slice(1);
-		options.app = options.app[0];
-	}
-
-	if (process.platform === 'darwin') {
-		command = 'open';
-
-		if (options.wait) {
-			cliArguments.push('-W');
-		}
-
-		if (options.app) {
-			cliArguments.push('-a', options.app);
-		}
-	} else if (process.platform === 'win32' || isWsl) {
-		command = 'cmd' + (isWsl ? '.exe' : '');
-		cliArguments.push('/c', 'start', '""', '/b');
-		target = target.replace(/&/g, '^&');
-
-		if (options.wait) {
-			cliArguments.push('/wait');
-		}
-
-		if (options.app) {
-			if (isWsl && options.app.startsWith('/mnt/')) {
-				const windowsPath = await wslToWindowsPath(options.app);
-				options.app = windowsPath;
-			}
-
-			cliArguments.push(options.app);
-		}
-
-		if (appArguments.length > 0) {
-			cliArguments.push(...appArguments);
-		}
-	} else {
-		if (options.app) {
-			command = options.app;
-		} else {
-			const useSystemXdgOpen = process.versions.electron || process.platform === 'android';
-			command = useSystemXdgOpen ? 'xdg-open' : path.join(__dirname, 'xdg-open');
-		}
-
-		if (appArguments.length > 0) {
-			cliArguments.push(...appArguments);
-		}
-
-		if (!options.wait) {
-			// `xdg-open` will block the process unless stdio is ignored
-			// and it's detached from the parent even if it's unref'd.
-			childProcessOptions.stdio = 'ignore';
-			childProcessOptions.detached = true;
-		}
-	}
-
-	cliArguments.push(target);
-
-	if (process.platform === 'darwin' && appArguments.length > 0) {
-		cliArguments.push('--args', ...appArguments);
-	}
-
-	const subprocess = childProcess.spawn(command, cliArguments, childProcessOptions);
-
-	if (options.wait) {
-		return new Promise((resolve, reject) => {
-			subprocess.once('error', reject);
-
-			subprocess.once('close', exitCode => {
-				if (exitCode > 0) {
-					reject(new Error(`Exited with code ${exitCode}`));
-					return;
-				}
-
-				resolve(subprocess);
-			});
-		});
-	}
-
-	subprocess.unref();
-
-	return subprocess;
-};
-
-
-/***/ }),
-
 /***/ "./node_modules/sax/lib/sax.js":
 /*!*************************************!*\
   !*** ./node_modules/sax/lib/sax.js ***!
@@ -26326,7 +26164,6 @@ const multistep_1 = __webpack_require__(/*! ./multistep */ "./src/utils/multiste
 const path = __webpack_require__(/*! path */ "path");
 const fs = __webpack_require__(/*! fs */ "fs");
 const quarkusextensions_1 = __webpack_require__(/*! ./quarkusextensions */ "./src/utils/quarkusextensions.ts");
-const open = __webpack_require__(/*! open */ "./node_modules/open/index.js");
 const metricsInfo = [{ label: "Yes" }, { label: "No" }];
 const tracingInfo = [{ label: "Yes" }, { label: "No" }];
 const kubernetesInfo = [{ label: "Yes" }, { label: "No" }];
@@ -26715,8 +26552,6 @@ function startAppInDevMode() {
     return __awaiter(this, void 0, void 0, function* () {
         var devStartCommand = "./mvnw compile quarkus:dev -Dquarkus.http.port=8081";
         yield quarkusterminalutils_1.executeInTerminal(devStartCommand, false);
-        yield delay(6000);
-        yield open("http://localhost:8081");
     });
 }
 exports.startAppInDevMode = startAppInDevMode;

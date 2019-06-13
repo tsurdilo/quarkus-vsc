@@ -10,7 +10,7 @@ import MultiStepInput from "./multistep";
 import * as path from "path";
 import * as fs from "fs";
 import { getQuarkusExtensionsInfo } from "./quarkusextensions";
-import * as open from "open";
+import open = require("open");
 
 export interface GenState {
 	title: string;

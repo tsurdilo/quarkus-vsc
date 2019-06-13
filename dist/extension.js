@@ -20833,7 +20833,6 @@ module.exports = async (target, options) => {
 
 	options = {
 		wait: false,
-		background: false,
 		...options
 	};
 
@@ -20851,11 +20850,7 @@ module.exports = async (target, options) => {
 		command = 'open';
 
 		if (options.wait) {
-			cliArguments.push('--wait-apps');
-		}
-
-		if (options.background) {
-			cliArguments.push('--background');
+			cliArguments.push('-W');
 		}
 
 		if (options.app) {
@@ -20886,10 +20881,7 @@ module.exports = async (target, options) => {
 		if (options.app) {
 			command = options.app;
 		} else {
-			// When bundled by Webpack, there's no actual package file path and no local `xdg-open`.
-			const isBundled = !__dirname || __dirname === '/';
-
-			const useSystemXdgOpen = process.versions.electron || process.platform === 'android' || isBundled;
+			const useSystemXdgOpen = process.versions.electron || process.platform === 'android';
 			command = useSystemXdgOpen ? 'xdg-open' : path.join(__dirname, 'xdg-open');
 		}
 

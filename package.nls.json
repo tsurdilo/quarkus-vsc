@@ -1,5 +1,6 @@
 {
     "description": "Generate and manage Quarkus projects, improve user experience for Quarkus developers.",
     "contributes.commands.quarkus.generate": "Generate Quarkus project",
-    "contributes.commands.quarkus.enableextension": "Enable Quarkus extension"
+    "contributes.commands.quarkus.enableextension": "Enable Quarkus extension",
+    "contributes.commands.quarkus.runindevmode": "Run app in dev mode"
 }

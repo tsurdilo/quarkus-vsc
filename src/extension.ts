@@ -33,6 +33,17 @@ async function doActivate(context: vscode.ExtensionContext): Promise<void> {
 			}
 		);
 	});
+
+	registerCommand(context, "quarkus.runindevmode", async () => {
+		await vscode.window.withProgress(
+			{ location: vscode.ProgressLocation.Notification },
+			async (p: Progress<{}>) => {
+				p.report({ message: "Running in dev mode ..." });
+				await QuarkusModule.runInDevMode(context);
+				p.report({ message: "finished." });
+			}
+		);
+	});
 }
 
 function registerCommand(

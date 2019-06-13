@@ -12,6 +12,8 @@ Quarkus (https://quarkus.io/) extension for VSC.
 
 ![Add Quarkus Extension](resources/quarkusvsc-addextension.png)
 
+3. Allows you start your Quarkus project in development mode. Your app will be started on port "8081". After start your default browser will open with loaded url "http://localhost:8081/"
+
 More features coming soon :)
 
 ## Commands
@@ -20,6 +22,7 @@ After installing this extension you will have two new commands available:
 
 1. **Quarkus: Generate Quarkus project**
 2. **Quarkus: Enable Quarkus extension**
+3. **Quarkus: Run app in dev mode**
 
 These commands can be accessed via the Command Panellete. To open the Command Pallette
 use F5 for Windows or ⇧⌘P on OSX).

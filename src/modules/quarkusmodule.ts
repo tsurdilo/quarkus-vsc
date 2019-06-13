@@ -6,7 +6,8 @@ import {
 	getDefaultGenState,
 	isQuarkusProject,
 	showExtensions,
-	installExtension
+	installExtension,
+	startDevMode
 } from "../utils/genutils";
 
 export namespace QuarkusModule {
@@ -20,6 +21,12 @@ export namespace QuarkusModule {
 			getDefaultGenState()
 		);
 		quickInput.show();
+	}
+
+	export async function runInDevMode(
+		context: ExtensionContext
+	): Promise<void> {
+		startDevMode(context);
 	}
 
 	export async function enableExtension(

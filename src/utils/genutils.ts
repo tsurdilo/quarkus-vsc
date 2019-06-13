@@ -10,6 +10,7 @@ import MultiStepInput from "./multistep";
 import * as path from "path";
 import * as fs from "fs";
 import { getQuarkusExtensionsInfo } from "./quarkusextensions";
+import * as open from "open";
 
 export interface GenState {
 	title: string;
@@ -396,6 +397,27 @@ export async function confirmInstallExtension(
 		});
 }
 
+export async function confirmStartInDevMode(
+	context: ExtensionContext,
+	startFunction: Function
+) {
+	window
+		.showInformationMessage(
+			`About to start Quarkus app in dev mode. Please confirm.`,
+			{ modal: true },
+			"Yes, start!"
+		)
+		.then(async answer => {
+			if (answer === "Yes, start!") {
+				try {
+					await startFunction(context);
+				} catch (e) {
+					window.showInformationMessage(`Error starting app: ${e}`);
+				}
+			}
+		});
+}
+
 async function validateGenInput(name: string) {
 	await new Promise(_resolve => setTimeout(_resolve, 1000));
 	return name.length < 1 ? "Invalid input" : undefined;
@@ -449,4 +471,21 @@ export async function installExtension(
 ) {
 	var defaultComamnd = `./mvnw quarkus:add-extension -Dextensions="${extensionid}"`;
 	await executeInTerminal(defaultComamnd, false);
+}
+
+export async function startDevMode(_context: ExtensionContext) {
+	if (isQuarkusProject()) {
+		await confirmStartInDevMode(_context, startAppInDevMode);
+	} else {
+		window.showErrorMessage(
+			"Unable to start app - not inside a Quarkus project"
+		);
+	}
+}
+
+export async function startAppInDevMode() {
+	var devStartCommand = "./mvnw compile quarkus:dev -Dquarkus.http.port=8081";
+	await executeInTerminal(devStartCommand, false);
+	await delay(6000);
+	await open("http://localhost:8081");
 }

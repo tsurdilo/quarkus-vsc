@@ -150,8 +150,8 @@ export async function executeInTerminal(
 		.filter(Boolean)
 		.join(" ");
 	const name: string = workspaceFolder
-		? `Maven-${workspaceFolder.name}`
-		: "Maven";
+		? `Quarkus-${workspaceFolder.name}`
+		: "Quarkus";
 	const terminal: vscode.Terminal = await quarkusTerminal.runInTerminal(
 		fullCommand,
 		Object.assign({ name }, options)

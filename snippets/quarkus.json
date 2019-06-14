@@ -1,0 +1,78 @@
+{
+	"Quarkus - new resource class": {
+		"prefix": "qrc",
+		"body": [
+			"package ${1:packagename};",
+			"",
+			"import javax.ws.rs.GET;",
+			"import javax.ws.rs.Path;",
+			"import javax.ws.rs.Produces;",
+			"import javax.ws.rs.core.MediaType;",
+			"",
+			"@Path(\"${2:path}\")",
+			"public class ${3:classname} {",
+			"",
+			"\t@GET",
+			"\t@Produces(MediaType.TEXT_PLAIN)",
+			"\tpublic String ${4:methodname}() {",
+			"\t\treturn \"hello\";",
+			"\t}",
+			"}"
+		],
+		"description": "Crete new Quarkus resource class"
+	},
+	"Quarkus - new resource method": {
+		"prefix": "qrm",
+		"body": [
+			"\t@GET",
+			"\t@Produces(MediaType.TEXT_PLAIN)",
+			"\tpublic String ${1:methodname}() {",
+			"\t\treturn \"hello\";",
+			"\t}",
+			"}"
+		],
+		"description": "Crete new Quarkus resource method"
+	},
+	"Quarkus - new test resource class": {
+		"prefix": "qtrc",
+		"body": [
+			"package ${1:packagename};",
+			"",
+			"import io.quarkus.test.junit.QuarkusTest;",
+			"import org.junit.jupiter.api.Test;",
+			"",
+			"import static io.restassured.RestAssured.given;",
+			"import static org.hamcrest.CoreMatchers.is;",
+			"",
+			"@QuarkusTest",
+			"public class ${2:classname}Test {",
+			"",
+			"\t@Test",
+			"\tpublic void test${3:methodname}() {",
+			"\t\tgiven()",
+			"\t\t.when().get(\"${4:path}\")",
+			"\t\t.then()",
+			"\t\t\t.statusCode(200)",
+			"\t\t\t.body(is(\"hello\"));",
+			"\t}",
+			"",
+			"}"
+		],
+		"description": "Crete new Quarkus test resource class"
+	},
+	"Quarkus - new native test resource class": {
+		"prefix": "qntrc",
+		"body": [
+			"package ${1:packagename};",
+			"",
+			"import io.quarkus.test.junit.SubstrateTest;",
+			"",
+			"@SubstrateTest",
+			"public class Native${2:classname}IT extends ${3:classname}Test {",
+			"",
+			"\t// Execute the same tests but in native mode.",
+			"}"
+		],
+		"description": "Crete new Quarkus native test resource class"
+	}
+}

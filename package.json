@@ -16,6 +16,7 @@
 	],
 	"categories": [
 		"Programming Languages",
+		"Snippets",
 		"Other"
 	],
 	"homepage": "https://github.com/tsurdilo/quarkus-vsc/blob/master/README.md",
@@ -31,8 +32,11 @@
 	],
 	"main": "./dist/extension",
 	"contributes": {
-		"commands": [
-			{
+		"snippets": [{
+			"language": "python",
+			"path": "./snippets/quarkus.json"
+		}],
+		"commands": [{
 				"command": "quarkus.generate",
 				"title": "%contributes.commands.quarkus.generate%",
 				"category": "Quarkus"

@@ -14,6 +14,8 @@ Quarkus (https://quarkus.io/) extension for VSC.
 
 3. Allows you start your Quarkus project in development mode.
 
+4. Provides several Quarkus related code snippets
+
 More features coming soon :)
 
 ## Commands
@@ -26,6 +28,15 @@ After installing this extension you will have two new commands available:
 
 These commands can be accessed via the Command Panellete. To open the Command Pallette
 use F5 for Windows or ⇧⌘P on OSX).
+
+## Code Snippets
+
+After installing this extension several Java code snippets will be added:
+
+1. **qrc** - Crete new Quarkus resource class
+2. **qrm** - Crete new Quarkus resource method
+3. **qtrc** - Crete new Quarkus test resource class
+4. **qntrc** - Crete new Quarkus native test resource class
 
 ## Requirements
 

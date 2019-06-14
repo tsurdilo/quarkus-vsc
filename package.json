@@ -32,14 +32,11 @@
 	],
 	"main": "./dist/extension",
 	"contributes": {
-		"snippets": [
-			{
-				"language": "python",
-				"path": "./snippets/quarkus.json"
-			}
-		],
-		"commands": [
-			{
+		"snippets": [{
+			"language": "java",
+			"path": "./snippets.json"
+		}],
+		"commands": [{
 				"command": "quarkus.generate",
 				"title": "%contributes.commands.quarkus.generate%",
 				"category": "Quarkus"

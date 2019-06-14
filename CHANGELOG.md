@@ -2,6 +2,10 @@
 
 All notable changes to the "quarkus-vsc" extension will be documented in this file.
 
+## 0.11.0 – 2019-06-14
+
+-   Added Quarkus Java code snippets
+
 ## 0.9.0 – 2019-06-13
 
 -   Added the "Run in dev mode" command

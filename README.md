@@ -14,6 +14,12 @@ Quarkus (https://quarkus.io/) extension for VSC.
 
 3. Allows you start your Quarkus project in development mode.
 
+![Run With Preview](resources/quarkusvsc-runwithpreview.png)
+
+By default your application will be started on port 8081.
+If you have the "Browser Preview" extension installed -- https://marketplace.visualstudio.com/items?itemName=auchenberg.vscode-browser-preview
+Your app will be loaded with it.
+
 4. Provides several Quarkus related code snippets
 
 More features coming soon :)

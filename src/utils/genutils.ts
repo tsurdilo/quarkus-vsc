@@ -10,6 +10,7 @@ import MultiStepInput from "./multistep";
 import * as path from "path";
 import * as fs from "fs";
 import { getQuarkusExtensionsInfo } from "./quarkusextensions";
+import { openInBrowser } from "./browserutils";
 
 export interface GenState {
 	title: string;
@@ -485,4 +486,7 @@ export async function startDevMode(_context: ExtensionContext) {
 export async function startAppInDevMode() {
 	var devStartCommand = "./mvnw compile quarkus:dev -Dquarkus.http.port=8081";
 	await executeInTerminal(devStartCommand, false);
+
+	await delay(6000);
+	await openInBrowser("http", "localhost", 8081, "");
 }

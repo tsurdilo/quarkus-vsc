@@ -2,6 +2,10 @@
 
 All notable changes to the "quarkus-vsc" extension will be documented in this file.
 
+## 0.12.0 – 2019-06-15
+
+-   Added Browser Preview open after app start
+
 ## 0.11.0 – 2019-06-14
 
 -   Added Quarkus Java code snippets

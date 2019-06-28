@@ -26251,7 +26251,7 @@ function showGenOptions(genDefaultFunc, genConfigFunc, context, genState) {
 exports.showGenOptions = showGenOptions;
 function genDefaultProject(_context, genState) {
     return __awaiter(this, void 0, void 0, function* () {
-        var defaultComamnd = `mvn io.quarkus:quarkus-maven-plugin:0.16.1:create \
+        var defaultComamnd = `mvn io.quarkus:quarkus-maven-plugin:0.18.0:create \
     -DprojectGroupId=${genState.genInfo.projectGroupId} \
     -DprojectArtifactId=${genState.genInfo.projectArtifactId} \
     -DprojectVersion=${genState.genInfo.projectVersion} \
@@ -26266,7 +26266,7 @@ function delay(ms) {
 }
 function genConfigProjectRun(_context, genState) {
     return __awaiter(this, void 0, void 0, function* () {
-        var defaultComamnd = `mvn io.quarkus:quarkus-maven-plugin:0.16.1:create \
+        var defaultComamnd = `mvn io.quarkus:quarkus-maven-plugin:0.18.0:create \
     -DprojectGroupId=${genState.genInfo.projectGroupId} \
     -DprojectArtifactId=${genState.genInfo.projectArtifactId} \
     -DprojectVersion=${genState.genInfo.projectVersion} \
@@ -26845,6 +26845,7 @@ function getQuarkusExtensionsInfo() {
 }
 exports.getQuarkusExtensionsInfo = getQuarkusExtensionsInfo;
 // needs to be updated for each quarkus release
+// currently using 0.18.0
 function getRawExtensionData() {
     return [
         {
@@ -26855,10 +26856,17 @@ function getRawExtensionData() {
         },
         {
             name: "Arc",
+            shortName: "CDI",
             labels: ["arc", "cdi", "dependency-injection", "di"],
             groupId: "io.quarkus",
             artifactId: "quarkus-arc",
             guide: "https://quarkus.io/guides/cdi-reference"
+        },
+        {
+            name: "AWS Lambda",
+            labels: ["lambda", "aws"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-amazon-lambda"
         },
         {
             name: "Camel Core",
@@ -26893,6 +26901,7 @@ function getRawExtensionData() {
         },
         {
             name: "Hibernate ORM",
+            shortName: "JPA",
             labels: ["hibernate-orm", "jpa", "hibernate"],
             groupId: "io.quarkus",
             artifactId: "quarkus-hibernate-orm",
@@ -26920,6 +26929,7 @@ function getRawExtensionData() {
         },
         {
             name: "Hibernate Validator",
+            shortName: "bean validation",
             labels: ["hibernate-validator", "bean-validation", "validation"],
             groupId: "io.quarkus",
             artifactId: "quarkus-hibernate-validator",
@@ -26971,6 +26981,13 @@ function getRawExtensionData() {
             guide: "https://quarkus.io/guides/keycloak-guide"
         },
         {
+            name: "Kogito",
+            labels: ["kogito", "drools", "jbpm"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-kogito",
+            guide: "https://quarkus.io/guides/kogito-guide"
+        },
+        {
             name: "Kotlin",
             labels: ["kotlin"],
             groupId: "io.quarkus",
@@ -26985,10 +27002,10 @@ function getRawExtensionData() {
             guide: "https://quarkus.io/guides/kubernetes-guide"
         },
         {
-            name: "AWS Lambda",
-            labels: ["lambda", "aws"],
+            name: "Kubernetes Client",
+            labels: ["kubernetes-client"],
             groupId: "io.quarkus",
-            artifactId: "quarkus-amazon-lambda"
+            artifactId: "quarkus-kubernetes-client"
         },
         {
             name: "Narayana JTA - Transaction manager",
@@ -27007,6 +27024,7 @@ function getRawExtensionData() {
         },
         {
             name: "RESTEasy",
+            shortName: "jax-rs",
             labels: ["resteasy", "jaxrs", "web", "rest"],
             groupId: "io.quarkus",
             artifactId: "quarkus-resteasy",
@@ -27043,6 +27061,7 @@ function getRawExtensionData() {
         },
         {
             name: "SmallRye Context Propagation",
+            shortName: "context propagation",
             labels: [
                 "smallrye-context-propagation",
                 "microprofile-context-propagation",
@@ -27067,6 +27086,7 @@ function getRawExtensionData() {
         },
         {
             name: "SmallRye Health",
+            shortName: "health",
             labels: [
                 "smallrye-health",
                 "health-check",
@@ -27087,6 +27107,7 @@ function getRawExtensionData() {
         },
         {
             name: "SmallRye Metrics",
+            shortName: "metrics",
             labels: [
                 "smallrye-metrics",
                 "metrics",
@@ -27120,6 +27141,7 @@ function getRawExtensionData() {
         },
         {
             name: "SmallRye Reactive Streams Operators",
+            shortName: "reactive streams",
             labels: [
                 "smallrye-reactive-streams-operators",
                 "smallrye-reactive-streams",
@@ -27157,10 +27179,18 @@ function getRawExtensionData() {
         },
         {
             name: "SmallRye Reactive Messaging - Kafka Connector",
+            shortName: "kafka",
             labels: ["kafka", "reactive-kafka"],
             groupId: "io.quarkus",
             artifactId: "quarkus-smallrye-reactive-messaging-kafka",
             guide: "https://quarkus.io/guides/kafka-guide"
+        },
+        {
+            name: "SmallRye Reactive Messaging - AMQP Connector",
+            labels: ["amqp", "reactive-amqp"],
+            groupId: "io.quarkus",
+            artifactId: "quarkus-smallrye-reactive-messaging-amqp",
+            guide: "https://quarkus.io/guides/amqp-guide"
         },
         {
             name: "SmallRye REST Client",
@@ -27190,12 +27220,14 @@ function getRawExtensionData() {
         },
         {
             name: "Undertow",
+            shortName: "servlet",
             labels: ["undertow", "servlet"],
             groupId: "io.quarkus",
             artifactId: "quarkus-undertow"
         },
         {
             name: "Undertow WebSockets",
+            shortName: "websockets",
             labels: [
                 "undertow-websockets",
                 "undertow-websocket",

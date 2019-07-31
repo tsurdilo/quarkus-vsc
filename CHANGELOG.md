@@ -2,6 +2,11 @@
 
 All notable changes to the "quarkus-vsc" extension will be documented in this file.
 
+## 0.13.0 – 2019-07-31
+
+-   Updated to Quarkus 0.20.0 release
+-   Updated Quarkus extensions list
+
 ## 0.13.0 – 2019-06-27
 
 -   Updated to Quarkus 0.18.0 release

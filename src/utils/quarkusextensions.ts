@@ -25,6 +25,30 @@ export function getRawExtensionData() {
 			artifactId: "quarkus-agroal"
 		},
 		{
+			name: "Amazon DynamoDB",
+			labels: ["dynamodb", "dynamo", "aws", "amazon"],
+			groupId: "io.quarkus",
+			artifactId: "quarkus-amazon-dynamodb"
+		},
+		{
+			name: "Apache Kafka Client",
+			labels: ["kafka"],
+			groupId: "io.quarkus",
+			artifactId: "quarkus-kafka-client"
+		},
+		{
+			name: "Apache Kafka Streams",
+			labels: ["kafka", "kafka-streams"],
+			groupId: "io.quarkus",
+			artifactId: "quarkus-kafka-streams"
+		},
+		{
+			name: "Apache Tika",
+			labels: ["tika", "parser"],
+			groupId: "io.quarkus",
+			artifactId: "quarkus-tika"
+		},
+		{
 			name: "Arc",
 			shortName: "CDI",
 			labels: ["arc", "cdi", "dependency-injection", "di"],
@@ -34,33 +58,9 @@ export function getRawExtensionData() {
 		},
 		{
 			name: "AWS Lambda",
-			labels: ["lambda", "aws"],
+			labels: ["lambda", "aws", "amazon"],
 			groupId: "io.quarkus",
 			artifactId: "quarkus-amazon-lambda"
-		},
-		{
-			name: "Camel Core",
-			labels: ["camel-core", "camel"],
-			groupId: "io.quarkus",
-			artifactId: "quarkus-camel-core"
-		},
-		{
-			name: "Camel Infinispan",
-			labels: ["camel-infinispan", "camel"],
-			groupId: "io.quarkus",
-			artifactId: "quarkus-camel-infinispan"
-		},
-		{
-			name: "Camel Netty4 HTTP",
-			labels: ["camel-netty4-http", "camel"],
-			groupId: "io.quarkus",
-			artifactId: "quarkus-camel-netty4-http"
-		},
-		{
-			name: "Camel Salesforce",
-			labels: ["camel-salesforce", "camel"],
-			groupId: "io.quarkus",
-			artifactId: "quarkus-camel-salesforce"
 		},
 		{
 			name: "Flyway",
@@ -131,6 +131,12 @@ export function getRawExtensionData() {
 			artifactId: "quarkus-jdbc-postgresql"
 		},
 		{
+			name: "Jackson",
+			labels: ["jackson", "json"],
+			groupId: "io.quarkus",
+			artifactId: "quarkus-jackson"
+		},
+		{
 			name: "JSON-B",
 			labels: ["jsonb", "json-b", "json"],
 			groupId: "io.quarkus",
@@ -178,6 +184,19 @@ export function getRawExtensionData() {
 			artifactId: "quarkus-kubernetes-client"
 		},
 		{
+			name: "Mailer",
+			labels: ["mail", "mailer"],
+			groupId: "io.quarkus",
+			artifactId: "quarkus-mailer",
+			guide: "https://quarkus.io/guides/sending-emails"
+		},
+		{
+			name: "MongoDB Client",
+			labels: ["mongo", "mongodb", "nosql", "datastore"],
+			groupId: "io.quarkus",
+			artifactId: "quarkus-mongodb-client"
+		},
+		{
 			name: "Narayana JTA - Transaction manager",
 			labels: [
 				"narayana-jta",
@@ -191,6 +210,26 @@ export function getRawExtensionData() {
 			groupId: "io.quarkus",
 			artifactId: "quarkus-narayana-jta",
 			guide: "https://quarkus.io/guides/transaction-guide"
+		},
+		{
+			name: "Neo4j client",
+			labels: ["neo4j", "graph", "nosql", "datastore"],
+			groupId: "io.quarkus",
+			artifactId: "quarkus-neo4j"
+		},
+		{
+			name: "Reactive PostgreSQL Client",
+			labels: [
+				"eclipse-vert.x",
+				"vertx",
+				"vert.x",
+				"reactive",
+				"database",
+				"data",
+				"postgresql"
+			],
+			groupId: "io.quarkus",
+			artifactId: "quarkus-reactive-pg-client"
 		},
 		{
 			name: "RESTEasy",
@@ -216,6 +255,20 @@ export function getRawExtensionData() {
 			guide: "https://quarkus.io/guides/rest-json-guide"
 		},
 		{
+			name: "RESTEasy - Jackson",
+			labels: [
+				"resteasy-jackson",
+				"jaxrs-json",
+				"resteasy-json",
+				"resteasy",
+				"jaxrs",
+				"json",
+				"jackson"
+			],
+			groupId: "io.quarkus",
+			artifactId: "quarkus-resteasy-jackson"
+		},
+		{
 			name: "Scheduler",
 			labels: ["scheduler", "tasks", "periodic-tasks"],
 			groupId: "io.quarkus",
@@ -228,6 +281,12 @@ export function getRawExtensionData() {
 			groupId: "io.quarkus",
 			artifactId: "quarkus-elytron-security",
 			guide: "https://quarkus.io/guides/security-guide"
+		},
+		{
+			name: "Security OAuth2",
+			labels: ["security", "oauth2"],
+			groupId: "io.quarkus",
+			artifactId: "quarkus-elytron-security-oauth2"
 		},
 		{
 			name: "SmallRye Context Propagation",
@@ -363,15 +422,10 @@ export function getRawExtensionData() {
 			guide: "https://quarkus.io/guides/amqp-guide"
 		},
 		{
-			name: "SmallRye REST Client",
-			labels: [
-				"smallrye-rest-client",
-				"rest-client",
-				"web-client",
-				"microprofile-rest-client"
-			],
+			name: "REST Client",
+			labels: ["rest-client", "web-client", "microprofile-rest-client"],
 			groupId: "io.quarkus",
-			artifactId: "quarkus-smallrye-rest-client",
+			artifactId: "quarkus-rest-client",
 			guide: "https://quarkus.io/guides/rest-client-guide"
 		},
 		{
@@ -416,39 +470,6 @@ export function getRawExtensionData() {
 			groupId: "io.quarkus",
 			artifactId: "quarkus-vertx",
 			guide: "https://quarkus.io/guides/using-vertx"
-		},
-		{
-			name: "Mailer",
-			labels: ["mail", "mailer"],
-			groupId: "io.quarkus",
-			artifactId: "quarkus-mailer",
-			guide: "https://quarkus.io/guides/sending-emails"
-		},
-		{
-			name: "Reactive Postgres Client",
-			labels: [
-				"eclipse-vert.x",
-				"vertx",
-				"vert.x",
-				"reactive",
-				"database",
-				"data",
-				"postgresql"
-			],
-			groupId: "io.quarkus",
-			artifactId: "quarkus-reactive-pg-client"
-		},
-		{
-			name: "Apache Kafka Client",
-			labels: ["kafka"],
-			groupId: "io.quarkus",
-			artifactId: "quarkus-kafka-client"
-		},
-		{
-			name: "Apache Kafka Streams",
-			labels: ["kafka", "kafka-streams"],
-			groupId: "io.quarkus",
-			artifactId: "quarkus-kafka-streams"
 		}
 	];
 }

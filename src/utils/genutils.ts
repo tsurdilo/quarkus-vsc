@@ -133,6 +133,8 @@ export async function genConfigProjectRun(
 		path.resolve(rootPath, genState.genInfo.projectArtifactId)
 	);
 
+	await executeInTerminal(`cd ${genState.genInfo.projectArtifactId}`, false);
+
 	if (isGenInDir) {
 		await executeInTerminal(
 			`cd ${genState.genInfo.projectArtifactId}`,

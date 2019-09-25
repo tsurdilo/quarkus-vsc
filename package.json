@@ -2,8 +2,8 @@
 	"name": "quarkus-vsc",
 	"displayName": "Quarkus",
 	"description": "%description%",
-	"version": "0.14.0",
-	"icon": "resources/logo.png",
+	"version": "1.0.0",
+	"icon": "resources/quarkus-logo.png",
 	"publisher": "tsurdilovic",
 	"author": "Tihomir Surdilovic",
 	"license": "Apache-2.0",
@@ -11,8 +11,10 @@
 		"vscode": "^1.35.0"
 	},
 	"keywords": [
-		"Quarkus",
-		"Java"
+		"java",
+		"quarkus",
+		"maven",
+		"starter"
 	],
 	"categories": [
 		"Programming Languages",

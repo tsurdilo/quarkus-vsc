@@ -98,7 +98,7 @@ export async function genDefaultProject(
 	_context: ExtensionContext,
 	genState: GenState
 ) {
-	var defaultComamnd = `mvn io.quarkus:quarkus-maven-plugin:0.20.0:create \
+	var defaultComamnd = `mvn io.quarkus:quarkus-maven-plugin:0.22.0:create \
     -DprojectGroupId=${genState.genInfo.projectGroupId} \
     -DprojectArtifactId=${genState.genInfo.projectArtifactId} \
     -DprojectVersion=${genState.genInfo.projectVersion} \
@@ -116,7 +116,7 @@ export async function genConfigProjectRun(
 	_context: ExtensionContext,
 	genState: GenState
 ) {
-	var defaultComamnd = `mvn io.quarkus:quarkus-maven-plugin:0.20.0:create \
+	var defaultComamnd = `mvn io.quarkus:quarkus-maven-plugin:0.22.0:create \
     -DprojectGroupId=${genState.genInfo.projectGroupId} \
     -DprojectArtifactId=${genState.genInfo.projectArtifactId} \
     -DprojectVersion=${genState.genInfo.projectVersion} \
